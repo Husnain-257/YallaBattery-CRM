@@ -820,6 +820,28 @@ body{
 
     </div>
 
+    <!-- VAT CHARGE -->
+
+    <div class="form-group">
+
+        <label>
+            VAT Charge
+        </label>
+
+        <select id="vatCharge">
+
+            <option value="YES">
+                YES
+            </option>
+
+            <option value="NO">
+                NO
+            </option>
+
+        </select>
+
+    </div>
+
     <!-- SHOP WARRANTY -->
 
     <div class="form-group">
@@ -1604,6 +1626,12 @@ function createInvoice(){
         .value;
 
 
+    const vatCharge =
+        document
+        .getElementById("vatCharge")
+        .value;
+
+
     const shopWarranty =
         document
         .getElementById("shopWarranty")
@@ -1632,7 +1660,9 @@ function createInvoice(){
 
 
     const vat =
-        taxableAmount * 0.05;
+        vatCharge === "YES"
+        ? taxableAmount * 0.05
+        : 0;
 
 
     const grandTotal =
@@ -2075,6 +2105,9 @@ function createInvoice(){
 
         vat:
             vat,
+
+        vatCharge:
+            vatCharge,
 
         total:
             grandTotal,
