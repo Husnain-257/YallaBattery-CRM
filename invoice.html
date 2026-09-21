@@ -1327,7 +1327,7 @@ body{
 
             <tr>
 
-                <td>
+                <td id="vatLabel">
                     VAT 5%
                 </td>
 
@@ -1432,8 +1432,6 @@ body{
                 <li>
                     A warranty replacement or approved warranty resolution does not create a new warranty period unless specifically stated by Yalla Battery.
                 </li>
-
-                <!-- OLD #9 REPLACED -->
 
                 <li>
                     If Shop Warranty is mentioned on the invoice, AED 100 service charges will apply. Otherwise, the customer will need to visit our shop.
@@ -1644,34 +1642,82 @@ function createInvoice(){
         .value;
 
 
-    /* =========================
-       CALCULATIONS
-    ========================= */
+    /* =================================================
+       VAT CALCULATION
 
-    const subtotal =
+       VAT YES:
+       Unit Price is BEFORE VAT
+       VAT = 5% added on top
+
+       VAT NO:
+       Unit Price is VAT-INCLUSIVE
+       VAT is extracted automatically
+
+       Example:
+       472.50 / 1.05 = 450.00
+       472.50 - 450.00 = 22.50 VAT
+       Grand Total = 472.50
+    ================================================= */
+
+    const grossSubtotal =
         qty * unitPrice;
 
 
-    const taxableAmount =
-        Math.max(
-            subtotal - discount,
-            0
-        );
+    let subtotal = 0;
+    let vat = 0;
+    let grandTotal = 0;
 
 
-    const vat =
-        vatCharge === "YES"
-        ? taxableAmount * 0.05
-        : 0;
+    if(vatCharge === "YES"){
+
+        /*
+           VAT is added on top
+        */
+
+        subtotal =
+            Math.max(
+                grossSubtotal - discount,
+                0
+            );
+
+        vat =
+            subtotal * 0.05;
+
+        grandTotal =
+            subtotal + vat;
+
+    }else{
+
+        /*
+           VAT is already included
+           inside the entered price
+        */
+
+        const amountAfterDiscount =
+            Math.max(
+                grossSubtotal - discount,
+                0
+            );
+
+        vat =
+            amountAfterDiscount -
+            (
+                amountAfterDiscount / 1.05
+            );
+
+        subtotal =
+            amountAfterDiscount -
+            vat;
+
+        grandTotal =
+            amountAfterDiscount;
+
+    }
 
 
-    const grandTotal =
-        taxableAmount + vat;
-
-
-    /* =========================
+    /* =================================================
        INVOICE NUMBER
-    ========================= */
+    ================================================= */
 
     let invoiceNumber =
         Number(
@@ -1696,9 +1742,9 @@ function createInvoice(){
         .padStart(5,"0");
 
 
-    /* =========================
+    /* =================================================
        DATE / TIME
-    ========================= */
+    ================================================= */
 
     const now =
         new Date();
@@ -1748,9 +1794,9 @@ function createInvoice(){
         );
 
 
-    /* =========================
+    /* =================================================
        UPDATE INVOICE
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outInvoiceNo")
@@ -1806,9 +1852,9 @@ function createInvoice(){
         );
 
 
-    /* =========================
-       CUSTOMER TRN OUTPUT
-    ========================= */
+    /* =================================================
+       CUSTOMER TRN
+    ================================================= */
 
     const customerTrnRow =
         document
@@ -1850,9 +1896,9 @@ function createInvoice(){
         );
 
 
-    /* =========================
+    /* =================================================
        VEHICLE
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outVehicle")
@@ -1884,9 +1930,9 @@ function createInvoice(){
         );
 
 
-    /* =========================
+    /* =================================================
        SERVICE
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outService")
@@ -1894,9 +1940,9 @@ function createInvoice(){
         service;
 
 
-    /* =========================
+    /* =================================================
        ITEM
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outItem")
@@ -1908,9 +1954,9 @@ function createInvoice(){
         ) + " ";
 
 
-    /* =========================
+    /* =================================================
        WARRANTY
-    ========================= */
+    ================================================= */
 
     const warrantyElement =
         document
@@ -1940,9 +1986,9 @@ function createInvoice(){
     }
 
 
-    /* =========================
+    /* =================================================
        QUANTITY
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outQty")
@@ -1950,9 +1996,9 @@ function createInvoice(){
         qty;
 
 
-    /* =========================
-       PRICE
-    ========================= */
+    /* =================================================
+       UNIT PRICE
+    ================================================= */
 
     document
     .getElementById("outUnit")
@@ -1960,15 +2006,22 @@ function createInvoice(){
         unitPrice.toFixed(2);
 
 
+    /* =================================================
+       ITEM TOTAL
+
+       This remains the actual amount entered
+       before/including VAT according to selection.
+    ================================================= */
+
     document
     .getElementById("outItemTotal")
     .textContent =
-        subtotal.toFixed(2);
+        grossSubtotal.toFixed(2);
 
 
-    /* =========================
+    /* =================================================
        PAYMENT
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outPayment")
@@ -1976,9 +2029,9 @@ function createInvoice(){
         payment;
 
 
-    /* =========================
+    /* =================================================
        SHOP WARRANTY YES / NO
-    ========================= */
+    ================================================= */
 
     const warrantyYes =
         document
@@ -2008,9 +2061,19 @@ function createInvoice(){
     }
 
 
-    /* =========================
+    /* =================================================
+       VAT LABEL
+    ================================================= */
+
+    document
+    .getElementById("vatLabel")
+    .textContent =
+        "VAT 5%";
+
+
+    /* =================================================
        TOTALS
-    ========================= */
+    ================================================= */
 
     document
     .getElementById("outSubtotal")
@@ -2036,9 +2099,9 @@ function createInvoice(){
         grandTotal.toFixed(2);
 
 
-    /* =========================
+    /* =================================================
        SAVE TO LOCAL STORAGE
-    ========================= */
+    ================================================= */
 
     const invoiceData = {
 
@@ -2097,19 +2160,42 @@ function createInvoice(){
         unitPrice:
             unitPrice,
 
+        /*
+           Store the NET subtotal
+        */
+
         subtotal:
             subtotal,
 
         discount:
             discount,
 
+        /*
+           Store automatically calculated VAT
+        */
+
         vat:
             vat,
+
+        /*
+           Store YES / NO selection
+        */
 
         vatCharge:
             vatCharge,
 
+        /*
+           Store final customer amount
+        */
+
         total:
+            grandTotal,
+
+        /*
+           Also save explicit grand total
+        */
+
+        grandTotal:
             grandTotal,
 
         payment:
@@ -2151,9 +2237,9 @@ function createInvoice(){
     );
 
 
-    /* =========================
+    /* =================================================
        CUSTOMER SAVE
-    ========================= */
+    ================================================= */
 
     let customers =
         JSON.parse(
