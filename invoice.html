@@ -365,7 +365,7 @@ body{
     border-right:none;
 }
 
-/* NOTES */
+/* TERMS + SIGNATURE */
 
 .notes-signature{
     display:grid;
@@ -389,8 +389,17 @@ body{
 }
 
 .notes-text{
-    font-size:11px;
-    line-height:1.5;
+    font-size:10px;
+    line-height:1.45;
+}
+
+.terms-list{
+    margin:0;
+    padding-left:16px;
+}
+
+.terms-list li{
+    margin-bottom:3px;
 }
 
 .signature-line{
@@ -580,6 +589,11 @@ body{
         font-weight:900 !important;
     }
 
+    .notes-text{
+        font-size:10px !important;
+        line-height:1.45 !important;
+    }
+
 }
 
 </style>
@@ -708,17 +722,35 @@ body{
             <label>Payment Method</label>
 
             <select id="payment">
-                <option value="Card">Card</option>
-                <option value="Cash">Cash</option>
-                <option value="Bank Transfer">Bank Transfer</option>
-                <option value="Link">Payment Link</option>
+
+                <option value="Card">
+                    Card
+                </option>
+
+                <option value="Cash">
+                    Cash
+                </option>
+
+                <option value="Bank Transfer">
+                    Bank Transfer
+                </option>
+
+                <option value="Link">
+                    Payment Link
+                </option>
+
             </select>
+
         </div>
 
         <div class="form-group">
-            <label>Service</label>
+
+            <label>
+                Service
+            </label>
 
             <select id="service">
+
                 <option value="Battery Replacement">
                     Battery Replacement
                 </option>
@@ -734,17 +766,8 @@ body{
                 <option value="Battery Diagnosis">
                     Battery Diagnosis
                 </option>
+
             </select>
-        </div>
-
-        <div class="form-group full">
-
-            <label>Notes</label>
-
-            <textarea
-                id="notes"
-                placeholder="Enter invoice notes..."
-            ></textarea>
 
         </div>
 
@@ -800,7 +823,6 @@ body{
 
         </div>
 
-
         <div class="invoice-title-box">
 
             <div class="invoice-title">
@@ -810,6 +832,7 @@ body{
             <div class="invoice-number">
 
                 <strong>Invoice No:</strong>
+
                 <span id="outInvoiceNo">
                     YB-00001
                 </span>
@@ -817,6 +840,7 @@ body{
                 <br>
 
                 <strong>Date:</strong>
+
                 <span id="outDate">
                     21/09/2026
                 </span>
@@ -824,6 +848,7 @@ body{
                 <br>
 
                 <strong>Time:</strong>
+
                 <span id="outTime">
                     12:00 PM
                 </span>
@@ -848,6 +873,7 @@ body{
             <table class="customer-table">
 
                 <tr>
+
                     <td class="label">
                         Name
                     </td>
@@ -855,9 +881,11 @@ body{
                     <td id="outName">
                         : Walk-in Customer
                     </td>
+
                 </tr>
 
                 <tr>
+
                     <td class="label">
                         Phone
                     </td>
@@ -865,9 +893,11 @@ body{
                     <td id="outPhone">
                         : 052 123 4567
                     </td>
+
                 </tr>
 
                 <tr>
+
                     <td class="label">
                         Email
                     </td>
@@ -875,9 +905,11 @@ body{
                     <td id="outEmail">
                         : N/A
                     </td>
+
                 </tr>
 
                 <tr>
+
                     <td class="label">
                         Address
                     </td>
@@ -885,9 +917,11 @@ body{
                     <td id="outAddress">
                         : Dubai, UAE
                     </td>
+
                 </tr>
 
                 <tr>
+
                     <td class="label">
                         Vehicle
                     </td>
@@ -895,6 +929,7 @@ body{
                     <td id="outVehicle">
                         : N/A
                     </td>
+
                 </tr>
 
             </table>
@@ -951,7 +986,6 @@ body{
 
         </thead>
 
-
         <tbody>
 
             <tr>
@@ -960,6 +994,7 @@ body{
                     class="desc"
                     id="outItem"
                 >
+
                     Car Battery (Yalla Battery)
 
                     <span
@@ -1034,14 +1069,16 @@ body{
                     </td>
 
                     <td>
+
                         AED
+
                         <span id="outSubtotal">
                             450.00
                         </span>
+
                     </td>
 
                 </tr>
-
 
                 <tr>
 
@@ -1050,14 +1087,16 @@ body{
                     </td>
 
                     <td>
+
                         AED
+
                         <span id="outDiscount">
                             0.00
                         </span>
+
                     </td>
 
                 </tr>
-
 
                 <tr>
 
@@ -1066,14 +1105,16 @@ body{
                     </td>
 
                     <td>
+
                         AED
+
                         <span id="outVat">
                             22.50
                         </span>
+
                     </td>
 
                 </tr>
-
 
                 <tr class="grand-total">
 
@@ -1082,10 +1123,13 @@ body{
                     </td>
 
                     <td>
+
                         AED
+
                         <span id="outTotal">
                             472.50
                         </span>
+
                     </td>
 
                 </tr>
@@ -1116,21 +1160,62 @@ body{
     </div>
 
 
-    <!-- NOTES + SIGNATURE -->
+    <!-- TERMS + SIGNATURE -->
 
     <div class="notes-signature">
 
         <div class="notes-box">
 
             <div class="notes-title">
-                NOTES
+                TERMS & CONDITIONS
             </div>
 
-            <div
-                class="notes-text"
-                id="outNotes"
-            >
-                Thank you for choosing Yalla Battery.
+            <div class="notes-text">
+
+                <ol class="terms-list">
+
+                    <li>
+                        All batteries are covered only for the stated warranty period shown on this invoice.
+                    </li>
+
+                    <li>
+                        During the warranty period, only <strong>one warranty claim</strong> is permitted per battery.
+                    </li>
+
+                    <li>
+                        Warranty claims require the original invoice as proof of purchase.
+                    </li>
+
+                    <li>
+                        Warranty covers manufacturing defects only and does not cover physical damage, accident, misuse, abuse, incorrect installation, modification, overheating, overcharging, deep discharge or improper maintenance.
+                    </li>
+
+                    <li>
+                        Battery warranty is valid only when the battery has been properly installed and used in the correct vehicle/application.
+                    </li>
+
+                    <li>
+                        <strong>All sold items and batteries are non-refundable.</strong> No cash refund or exchange will be provided except where a valid warranty claim is accepted under the applicable warranty terms.
+                    </li>
+
+                    <li>
+                        Warranty assessment is subject to inspection and testing by Yalla Battery.
+                    </li>
+
+                    <li>
+                        A warranty replacement or approved warranty resolution does not create a new warranty period unless specifically stated by Yalla Battery.
+                    </li>
+
+                    <li>
+                        Any applicable installation, service, towing or roadside assistance charges may be charged separately and are not automatically covered by the battery warranty.
+                    </li>
+
+                    <li>
+                        By accepting the battery/service, the customer acknowledges and agrees to these terms and conditions.
+                    </li>
+
+                </ol>
+
             </div>
 
         </div>
@@ -1164,15 +1249,19 @@ body{
         <div class="footer-details">
 
             +971 52 404 0699
+
             &nbsp; | &nbsp;
+
             info@yallabattery.ae
+
             &nbsp; | &nbsp;
+
             Dubai, UAE
 
         </div>
 
         <div class="footer-slogan">
-            Powering Your Journey
+            Thank you for choosing Yalla Battery
         </div>
 
     </div>
@@ -1207,6 +1296,7 @@ if(!dateInput.value){
 
     dateInput.value =
         year + "-" + month + "-" + day;
+
 }
 
 
@@ -1222,11 +1312,13 @@ function createInvoice(){
         .value
         .trim();
 
+
     const phone =
         document
         .getElementById("phone")
         .value
         .trim();
+
 
     const email =
         document
@@ -1234,11 +1326,13 @@ function createInvoice(){
         .value
         .trim();
 
+
     const vehicle =
         document
         .getElementById("vehicle")
         .value
         .trim();
+
 
     const address =
         document
@@ -1246,10 +1340,12 @@ function createInvoice(){
         .value
         .trim();
 
+
     const invoiceDate =
         document
         .getElementById("invoiceDate")
         .value;
+
 
     const item =
         document
@@ -1257,11 +1353,13 @@ function createInvoice(){
         .value
         .trim();
 
+
     const warranty =
         document
         .getElementById("warranty")
         .value
         .trim();
+
 
     const qty =
         Number(
@@ -1270,12 +1368,14 @@ function createInvoice(){
             .value
         ) || 1;
 
+
     const unitPrice =
         Number(
             document
             .getElementById("unitPrice")
             .value
         ) || 0;
+
 
     const discount =
         Number(
@@ -1284,21 +1384,17 @@ function createInvoice(){
             .value
         ) || 0;
 
+
     const payment =
         document
         .getElementById("payment")
         .value;
 
+
     const service =
         document
         .getElementById("service")
         .value;
-
-    const notes =
-        document
-        .getElementById("notes")
-        .value
-        .trim();
 
 
     /* =========================
@@ -1308,14 +1404,17 @@ function createInvoice(){
     const subtotal =
         qty * unitPrice;
 
+
     const taxableAmount =
         Math.max(
             subtotal - discount,
             0
         );
 
+
     const vat =
         taxableAmount * 0.05;
+
 
     const grandTotal =
         taxableAmount + vat;
@@ -1332,12 +1431,15 @@ function createInvoice(){
             )
         ) || 0;
 
+
     invoiceNumber++;
+
 
     localStorage.setItem(
         "yallaInvoiceNumber",
         invoiceNumber
     );
+
 
     const invoiceNo =
         "YB-" +
@@ -1352,12 +1454,15 @@ function createInvoice(){
     const now =
         new Date();
 
+
     let displayDate = "";
+
 
     if(invoiceDate){
 
         const parts =
             invoiceDate.split("-");
+
 
         displayDate =
             parts[2] +
@@ -1369,10 +1474,14 @@ function createInvoice(){
     }else{
 
         displayDate =
-            String(now.getDate())
+            String(
+                now.getDate()
+            )
             .padStart(2,"0")
             + "/" +
-            String(now.getMonth()+1)
+            String(
+                now.getMonth()+1
+            )
             .padStart(2,"0")
             + "/" +
             now.getFullYear();
@@ -1399,10 +1508,12 @@ function createInvoice(){
     .textContent =
         invoiceNo;
 
+
     document
     .getElementById("outDate")
     .textContent =
         displayDate;
+
 
     document
     .getElementById("outTime")
@@ -1414,28 +1525,40 @@ function createInvoice(){
     .getElementById("outName")
     .textContent =
         ": " +
-        (customerName || "Walk-in Customer");
+        (
+            customerName ||
+            "Walk-in Customer"
+        );
 
 
     document
     .getElementById("outPhone")
     .textContent =
         ": " +
-        (phone || "N/A");
+        (
+            phone ||
+            "N/A"
+        );
 
 
     document
     .getElementById("outEmail")
     .textContent =
         ": " +
-        (email || "N/A");
+        (
+            email ||
+            "N/A"
+        );
 
 
     document
     .getElementById("outAddress")
     .textContent =
         ": " +
-        (address || "Dubai, UAE");
+        (
+            address ||
+            "Dubai, UAE"
+        );
 
 
     /* =========================
@@ -1446,7 +1569,10 @@ function createInvoice(){
     .getElementById("outVehicle")
     .textContent =
         ": " +
-        (vehicle || "N/A");
+        (
+            vehicle ||
+            "N/A"
+        );
 
 
     /* =========================
@@ -1467,8 +1593,10 @@ function createInvoice(){
     .getElementById("outItem")
     .childNodes[0]
     .nodeValue =
-        (item || "Car Battery")
-        + " ";
+        (
+            item ||
+            "Car Battery"
+        ) + " ";
 
 
     /* =========================
@@ -1487,6 +1615,7 @@ function createInvoice(){
             warranty +
             " MONTHS";
 
+
         warrantyElement.style.display =
             "block";
 
@@ -1495,17 +1624,26 @@ function createInvoice(){
         warrantyElement.textContent =
             "";
 
+
         warrantyElement.style.display =
             "none";
 
     }
 
 
+    /* =========================
+       QUANTITY
+    ========================= */
+
     document
     .getElementById("outQty")
     .textContent =
         qty;
 
+
+    /* =========================
+       PRICE
+    ========================= */
 
     document
     .getElementById("outUnit")
@@ -1519,11 +1657,19 @@ function createInvoice(){
         subtotal.toFixed(2);
 
 
+    /* =========================
+       PAYMENT
+    ========================= */
+
     document
     .getElementById("outPayment")
     .textContent =
         payment;
 
+
+    /* =========================
+       TOTALS
+    ========================= */
 
     document
     .getElementById("outSubtotal")
@@ -1549,24 +1695,20 @@ function createInvoice(){
         grandTotal.toFixed(2);
 
 
-    document
-    .getElementById("outNotes")
-    .textContent =
-        notes ||
-        "Thank you for choosing Yalla Battery.";
-
-
     /* =========================
        SAVE TO LOCAL STORAGE
     ========================= */
 
     const invoiceData = {
 
-        invoiceNo: invoiceNo,
+        invoiceNo:
+            invoiceNo,
 
-        date: displayDate,
+        date:
+            displayDate,
 
-        time: displayTime,
+        time:
+            displayTime,
 
         customerName:
             customerName ||
@@ -1596,25 +1738,29 @@ function createInvoice(){
             warranty ||
             "",
 
-        qty: qty,
+        qty:
+            qty,
 
-        unitPrice: unitPrice,
+        unitPrice:
+            unitPrice,
 
-        subtotal: subtotal,
+        subtotal:
+            subtotal,
 
-        discount: discount,
+        discount:
+            discount,
 
-        vat: vat,
+        vat:
+            vat,
 
-        total: grandTotal,
+        total:
+            grandTotal,
 
-        payment: payment,
+        payment:
+            payment,
 
-        service: service,
-
-        notes:
-            notes ||
-            "Thank you for choosing Yalla Battery.",
+        service:
+            service,
 
         createdAt:
             new Date().toISOString()
@@ -1630,12 +1776,16 @@ function createInvoice(){
         ) || [];
 
 
-    invoices.push(invoiceData);
+    invoices.push(
+        invoiceData
+    );
 
 
     localStorage.setItem(
         "yallaInvoices",
-        JSON.stringify(invoices)
+        JSON.stringify(
+            invoices
+        )
     );
 
 
@@ -1655,21 +1805,29 @@ function createInvoice(){
 
         customers.push({
 
-            name:customerName,
+            name:
+                customerName,
 
-            phone:phone,
+            phone:
+                phone,
 
-            email:email,
+            email:
+                email,
 
-            vehicle:vehicle,
+            vehicle:
+                vehicle,
 
-            address:address
+            address:
+                address
 
         });
 
+
         localStorage.setItem(
             "yallaCustomers",
-            JSON.stringify(customers)
+            JSON.stringify(
+                customers
+            )
         );
 
     }
