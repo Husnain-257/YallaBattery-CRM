@@ -1157,6 +1157,11 @@ function viewCustomer(
             );
 
 
+        /*
+           Save selected customer
+           for customer-profile.html
+        */
+
         localStorage.setItem(
             "yallaSelectedCustomer",
             JSON.stringify(customer)
@@ -1164,33 +1169,14 @@ function viewCustomer(
 
 
         /*
-           For now open the customer's
-           invoice history through the
-           selected customer's data.
+           Open CUSTOMER PROFILE
+           instead of opening only
+           the latest invoice.
         */
 
-        const invoice =
-            customer.lastInvoice;
+        window.location.href =
+            "customer-profile.html";
 
-
-        if(invoice){
-
-            localStorage.setItem(
-                "yallaSelectedInvoice",
-                JSON.stringify(invoice)
-            );
-
-
-            window.location.href =
-                "view-invoice.html";
-
-        }else{
-
-            alert(
-                "No invoice found for this customer."
-            );
-
-        }
 
     }catch(error){
 
