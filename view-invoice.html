@@ -968,30 +968,161 @@ body{
 
 /* =========================================
    GET SELECTED INVOICE
+   FIXED VERSION
 ========================================= */
 
 function getSelectedInvoice(){
 
-    try{
+    /*
+       First try the main key
+    */
 
-        const data =
-            localStorage.getItem(
-                "yallaSelectedInvoice"
+    const possibleKeys = [
+
+        "yallaSelectedInvoice",
+        "selectedInvoice",
+        "currentInvoice",
+        "invoiceData",
+        "viewInvoice",
+        "yallaInvoice"
+
+    ];
+
+
+    /*
+       Try localStorage
+    */
+
+    for(let key of possibleKeys){
+
+        try{
+
+            const data =
+                localStorage.getItem(key);
+
+            if(data){
+
+                const parsed =
+                    JSON.parse(data);
+
+                if(parsed && typeof parsed === "object"){
+
+                    return parsed;
+
+                }
+
+            }
+
+        }catch(error){
+
+            console.warn(
+                "LocalStorage error:",
+                key,
+                error
             );
 
-        if(!data){
-            return null;
         }
 
-        return JSON.parse(data);
+    }
+
+
+    /*
+       Try sessionStorage
+    */
+
+    for(let key of possibleKeys){
+
+        try{
+
+            const data =
+                sessionStorage.getItem(key);
+
+            if(data){
+
+                const parsed =
+                    JSON.parse(data);
+
+                if(parsed && typeof parsed === "object"){
+
+                    return parsed;
+
+                }
+
+            }
+
+        }catch(error){
+
+            console.warn(
+                "SessionStorage error:",
+                key,
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+       Try URL invoice data
+       Example:
+       viewinvoice.html?invoice=...
+    */
+
+    try{
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const invoiceParam =
+            params.get("invoice");
+
+        if(invoiceParam){
+
+            try{
+
+                const decoded =
+                    decodeURIComponent(
+                        invoiceParam
+                    );
+
+                const parsed =
+                    JSON.parse(decoded);
+
+                if(parsed){
+
+                    return parsed;
+
+                }
+
+            }catch(error){
+
+                console.warn(
+                    "URL invoice parsing failed:",
+                    error
+                );
+
+            }
+
+        }
 
     }catch(error){
 
-        console.error(error);
-
-        return null;
+        console.warn(
+            "URL parameter error:",
+            error
+        );
 
     }
+
+
+    /*
+       Nothing found
+    */
+
+    return null;
 
 }
 
@@ -1018,6 +1149,38 @@ function safe(value){
 
 
 /* =========================================
+   NUMBER HELPER
+========================================= */
+
+function numberValue(value){
+
+    if(
+        value === null ||
+        value === undefined ||
+        value === ""
+    ){
+
+        return 0;
+
+    }
+
+    const cleaned =
+        String(value)
+        .replace(/AED/gi,"")
+        .replace(/,/g,"")
+        .trim();
+
+    const number =
+        Number(cleaned);
+
+    return isNaN(number)
+        ? 0
+        : number;
+
+}
+
+
+/* =========================================
    LOAD INVOICE
 ========================================= */
 
@@ -1026,6 +1189,10 @@ function loadInvoice(){
     const invoice =
         getSelectedInvoice();
 
+
+    /*
+       Invoice not found
+    */
 
     if(!invoice){
 
@@ -1042,12 +1209,36 @@ function loadInvoice(){
     }
 
 
-    /* INVOICE INFO */
+    /*
+       Make invoice visible
+    */
 
-    document.getElementById("invoiceInfo").innerHTML = `
+    document
+        .getElementById("invoiceContainer")
+        .style.display = "block";
+
+    document
+        .getElementById("errorBox")
+        .style.display = "none";
+
+
+    /* =====================================
+       INVOICE INFO
+    ===================================== */
+
+    const companyTrn =
+        invoice.companyTrn ||
+        invoice.companyTRN ||
+        invoice.trn ||
+        "105121363300003";
+
+
+    document
+        .getElementById("invoiceInfo")
+        .innerHTML = `
 
         <strong>Invoice No:</strong>
-        ${safe(invoice.invoiceNo)}
+        ${safe(invoice.invoiceNo || invoice.invoiceNumber)}
         <br>
 
         <strong>Date:</strong>
@@ -1059,168 +1250,292 @@ function loadInvoice(){
         <br>
 
         <strong>TRN:</strong>
-        ${safe(
-            invoice.companyTrn ||
-            "105121363300003"
-        )}
+        ${safe(companyTrn)}
 
     `;
 
 
-    /* CUSTOMER */
+    /* =====================================
+       CUSTOMER
+    ===================================== */
 
-    document.getElementById("customerName")
+    document
+        .getElementById("customerName")
         .textContent =
-        safe(invoice.customerName);
+        safe(
+            invoice.customerName ||
+            invoice.name ||
+            invoice.customer
+        );
 
 
-    document.getElementById("phone")
+    document
+        .getElementById("phone")
         .textContent =
-        safe(invoice.phone);
+        safe(
+            invoice.phone ||
+            invoice.customerPhone
+        );
 
 
-    document.getElementById("email")
+    document
+        .getElementById("email")
         .textContent =
-        safe(invoice.email);
+        safe(
+            invoice.email ||
+            invoice.customerEmail
+        );
 
 
-    document.getElementById("customerTrn")
+    document
+        .getElementById("customerTrn")
         .textContent =
-        safe(invoice.customerTrn);
+        safe(
+            invoice.customerTrn ||
+            invoice.customerTRN
+        );
 
 
-    document.getElementById("address")
+    document
+        .getElementById("address")
         .textContent =
-        safe(invoice.address);
+        safe(
+            invoice.address ||
+            invoice.customerAddress
+        );
 
 
-    /* VEHICLE */
+    /* =====================================
+       VEHICLE
+    ===================================== */
 
-    document.getElementById("vehicle")
+    document
+        .getElementById("vehicle")
         .textContent =
-        safe(invoice.vehicle);
+        safe(
+            invoice.vehicle ||
+            invoice.car
+        );
 
 
-    document.getElementById("vehicleModel")
+    document
+        .getElementById("vehicleModel")
         .textContent =
-        safe(invoice.vehicleModel);
+        safe(
+            invoice.vehicleModel ||
+            invoice.model
+        );
 
 
-    document.getElementById("vehicleYear")
+    document
+        .getElementById("vehicleYear")
         .textContent =
-        safe(invoice.vehicleYear);
+        safe(
+            invoice.vehicleYear ||
+            invoice.year
+        );
 
 
-    /* SERVICE */
+    /* =====================================
+       SERVICE
+    ===================================== */
 
-    document.getElementById("service")
+    document
+        .getElementById("service")
         .textContent =
-        safe(invoice.service);
+        safe(
+            invoice.service ||
+            invoice.serviceProvided
+        );
 
 
-    /* ITEM */
+    /* =====================================
+       ITEM
+    ===================================== */
 
-    document.getElementById("item")
+    document
+        .getElementById("item")
         .textContent =
-        safe(invoice.item);
+        safe(
+            invoice.item ||
+            invoice.itemDescription ||
+            invoice.battery
+        );
 
 
-    document.getElementById("warranty")
+    /*
+       WARRANTY
+    */
+
+    document
+        .getElementById("warranty")
         .textContent =
         invoice.warranty
         ? "Warranty: " + invoice.warranty
         : "";
 
 
-    /* NUMBERS */
+    /* =====================================
+       NUMBERS
+    ===================================== */
 
     const qty =
-        Number(invoice.qty || 0);
+        numberValue(
+            invoice.qty ||
+            invoice.quantity ||
+            1
+        );
 
 
     const unitPrice =
-        Number(invoice.unitPrice || 0);
-
-
-    const subtotal =
-        Number(
-            invoice.subtotal ||
-            (qty * unitPrice) ||
-            0
+        numberValue(
+            invoice.unitPrice ||
+            invoice.price ||
+            invoice.salePrice
         );
+
+
+    let subtotal =
+        numberValue(
+            invoice.subtotal
+        );
+
+
+    /*
+       If subtotal does not exist,
+       calculate it automatically
+    */
+
+    if(!subtotal){
+
+        subtotal =
+            qty * unitPrice;
+
+    }
 
 
     const discount =
-        Number(
-            invoice.discount ||
-            0
+        numberValue(
+            invoice.discount
         );
 
 
-    const vat =
-        Number(
+    let vat =
+        numberValue(
             invoice.vat ||
-            0
+            invoice.vatAmount
         );
 
 
-    const grandTotal =
-        Number(
+    /*
+       If VAT is not saved,
+       calculate 5% after discount
+    */
+
+    if(
+        !vat &&
+        invoice.vat !== 0 &&
+        invoice.vat !== "0"
+    ){
+
+        vat =
+            (subtotal - discount) * 0.05;
+
+    }
+
+
+    let grandTotal =
+        numberValue(
             invoice.grandTotal ||
             invoice.total ||
-            (subtotal - discount + vat) ||
-            0
+            invoice.totalAmount
         );
+
+
+    /*
+       If grand total is not saved,
+       calculate automatically
+    */
+
+    if(!grandTotal){
+
+        grandTotal =
+            subtotal -
+            discount +
+            vat;
+
+    }
 
 
     const itemTotal =
         qty * unitPrice;
 
 
-    /* ITEM NUMBERS */
+    /* =====================================
+       ITEM NUMBERS
+    ===================================== */
 
-    document.getElementById("qty")
+    document
+        .getElementById("qty")
         .textContent =
         qty;
 
 
-    document.getElementById("unitPrice")
+    document
+        .getElementById("unitPrice")
         .textContent =
         unitPrice.toFixed(2);
 
 
-    document.getElementById("itemTotal")
+    document
+        .getElementById("itemTotal")
         .textContent =
         itemTotal.toFixed(2);
 
 
-    /* TOTALS */
+    /* =====================================
+       TOTALS
+    ===================================== */
 
-    document.getElementById("subtotal")
+    document
+        .getElementById("subtotal")
         .textContent =
-        "AED " + subtotal.toFixed(2);
+        "AED " +
+        subtotal.toFixed(2);
 
 
-    document.getElementById("discount")
+    document
+        .getElementById("discount")
         .textContent =
-        "AED " + discount.toFixed(2);
+        "AED " +
+        discount.toFixed(2);
 
 
-    document.getElementById("vat")
+    document
+        .getElementById("vat")
         .textContent =
-        "AED " + vat.toFixed(2);
+        "AED " +
+        vat.toFixed(2);
 
 
-    document.getElementById("grandTotal")
+    document
+        .getElementById("grandTotal")
         .textContent =
-        "AED " + grandTotal.toFixed(2);
+        "AED " +
+        grandTotal.toFixed(2);
 
 
-    /* PAYMENT */
+    /* =====================================
+       PAYMENT
+    ===================================== */
 
-    document.getElementById("payment")
+    document
+        .getElementById("payment")
         .textContent =
-        safe(invoice.payment);
+        safe(
+            invoice.payment ||
+            invoice.paymentMethod
+        );
 
 }
 
@@ -1230,6 +1545,10 @@ function loadInvoice(){
 ========================================= */
 
 function goBack(){
+
+    /*
+       Try invoice history first
+    */
 
     window.location.href =
         "invoice-history.html";
@@ -1241,7 +1560,14 @@ function goBack(){
    START
 ========================================= */
 
-loadInvoice();
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadInvoice();
+
+    }
+);
 
 </script>
 
