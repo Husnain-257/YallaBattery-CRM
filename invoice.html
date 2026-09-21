@@ -912,6 +912,14 @@ body{
                     12:00 PM
                 </span>
 
+                <br>
+
+                <strong>TRN:</strong>
+
+                <span id="outCompanyTrn">
+                    105121363300003
+                </span>
+
             </div>
 
         </div>
@@ -1369,10 +1377,6 @@ body{
 
             Dubai, UAE
 
-            &nbsp; | &nbsp;
-
-            TRN: 105121363300003
-
         </div>
 
         <div class="footer-slogan">
@@ -1667,6 +1671,12 @@ function createInvoice(){
     .getElementById("outTime")
     .textContent =
         displayTime;
+
+
+    document
+    .getElementById("outCompanyTrn")
+    .textContent =
+        "105121363300003";
 
 
     document
