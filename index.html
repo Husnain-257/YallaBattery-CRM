@@ -370,7 +370,7 @@ body{
 
         <div class="stat">
             <div class="icon">💰</div>
-            <h3>AED 0</h3>
+            <h3 id="salesTotal">AED 0.00</h3>
             <p>Total Sales</p>
         </div>
 
@@ -396,7 +396,7 @@ body{
         </div>
 
 
-        <div class="card" onclick="openPage('invoices.html')">
+        <div class="card" onclick="openPage('invoice-history.html')">
 
             <div class="card-icon">📋</div>
 
@@ -537,14 +537,41 @@ let stock =
     JSON.parse(localStorage.getItem("yallaBatteryStock") || "[]");
 
 
+/* Total invoices */
+
 document.getElementById("invoiceCount").textContent =
     invoices.length;
+
+
+/* Total customers */
 
 document.getElementById("customerCount").textContent =
     customers.length;
 
+
+/* Battery stock */
+
 document.getElementById("stockCount").textContent =
     stock.length;
+
+
+/* Total sales */
+
+let totalSales = 0;
+
+invoices.forEach(function(invoice){
+
+    totalSales += Number(
+        invoice.grandTotal ||
+        invoice.total ||
+        0
+    );
+
+});
+
+
+document.getElementById("salesTotal").textContent =
+    "AED " + totalSales.toFixed(2);
 
 </script>
 
