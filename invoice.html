@@ -669,6 +669,16 @@ body{
             >
         </div>
 
+        <!-- CUSTOMER TRN - OPTIONAL -->
+        <div class="form-group">
+            <label>Customer TRN (Optional)</label>
+            <input
+                type="text"
+                id="customerTrn"
+                placeholder="Enter customer TRN if required"
+            >
+        </div>
+
         <!-- VEHICLE -->
         <div class="form-group">
             <label>Vehicle</label>
@@ -957,6 +967,20 @@ body{
 
                         <td id="outEmail">
                             : N/A
+                        </td>
+
+                    </tr>
+
+                    <!-- CUSTOMER TRN - HIDDEN UNTIL ENTERED -->
+
+                    <tr id="customerTrnRow" style="display:none;">
+
+                        <td class="label">
+                            TRN
+                        </td>
+
+                        <td id="outCustomerTrn">
+                            :
                         </td>
 
                     </tr>
@@ -1345,6 +1369,10 @@ body{
 
             Dubai, UAE
 
+            &nbsp; | &nbsp;
+
+            TRN: 105121363300003
+
         </div>
 
         <div class="footer-slogan">
@@ -1410,6 +1438,17 @@ function createInvoice(){
     const email =
         document
         .getElementById("email")
+        .value
+        .trim();
+
+
+    /* =========================
+       CUSTOMER TRN
+    ========================= */
+
+    const customerTrn =
+        document
+        .getElementById("customerTrn")
         .value
         .trim();
 
@@ -1660,6 +1699,40 @@ function createInvoice(){
         );
 
 
+    /* =========================
+       CUSTOMER TRN OUTPUT
+    ========================= */
+
+    const customerTrnRow =
+        document
+        .getElementById("customerTrnRow");
+
+
+    const outCustomerTrn =
+        document
+        .getElementById("outCustomerTrn");
+
+
+    if(customerTrn){
+
+        outCustomerTrn.textContent =
+            ": " +
+            customerTrn;
+
+        customerTrnRow.style.display =
+            "table-row";
+
+    }else{
+
+        outCustomerTrn.textContent =
+            ":";
+
+        customerTrnRow.style.display =
+            "none";
+
+    }
+
+
     document
     .getElementById("outAddress")
     .textContent =
@@ -1859,6 +1932,10 @@ function createInvoice(){
             email ||
             "N/A",
 
+        customerTrn:
+            customerTrn ||
+            "",
+
         vehicle:
             vehicle ||
             "N/A",
@@ -1906,6 +1983,9 @@ function createInvoice(){
 
         service:
             service,
+
+        companyTrn:
+            "105121363300003",
 
         createdAt:
             new Date().toISOString()
@@ -1958,6 +2038,9 @@ function createInvoice(){
 
             email:
                 email,
+
+            customerTrn:
+                customerTrn,
 
             vehicle:
                 vehicle,
