@@ -669,12 +669,33 @@ body{
             >
         </div>
 
+        <!-- VEHICLE -->
         <div class="form-group">
             <label>Vehicle</label>
             <input
                 type="text"
                 id="vehicle"
-                placeholder="Toyota Camry 2022"
+                placeholder="Toyota"
+            >
+        </div>
+
+        <!-- MODEL -->
+        <div class="form-group">
+            <label>Model</label>
+            <input
+                type="text"
+                id="vehicleModel"
+                placeholder="Camry"
+            >
+        </div>
+
+        <!-- YEAR -->
+        <div class="form-group">
+            <label>Year</label>
+            <input
+                type="text"
+                id="vehicleYear"
+                placeholder="2024"
             >
         </div>
 
@@ -978,6 +999,30 @@ body{
                         </td>
 
                         <td id="outVehicle">
+                            : N/A
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="label">
+                            Model
+                        </td>
+
+                        <td id="outModel">
+                            : N/A
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="label">
+                            Year
+                        </td>
+
+                        <td id="outYear">
                             : N/A
                         </td>
 
@@ -1372,6 +1417,28 @@ function createInvoice(){
         .trim();
 
 
+    /* =========================
+       VEHICLE MODEL
+    ========================= */
+
+    const vehicleModel =
+        document
+        .getElementById("vehicleModel")
+        .value
+        .trim();
+
+
+    /* =========================
+       VEHICLE YEAR
+    ========================= */
+
+    const vehicleYear =
+        document
+        .getElementById("vehicleYear")
+        .value
+        .trim();
+
+
     const address =
         document
         .getElementById("address")
@@ -1600,7 +1667,7 @@ function createInvoice(){
 
 
     /* =========================
-       VEHICLE DETAILS
+       VEHICLE
     ========================= */
 
     document
@@ -1609,6 +1676,34 @@ function createInvoice(){
         ": " +
         (
             vehicle ||
+            "N/A"
+        );
+
+
+    /* =========================
+       MODEL
+    ========================= */
+
+    document
+    .getElementById("outModel")
+    .textContent =
+        ": " +
+        (
+            vehicleModel ||
+            "N/A"
+        );
+
+
+    /* =========================
+       YEAR
+    ========================= */
+
+    document
+    .getElementById("outYear")
+    .textContent =
+        ": " +
+        (
+            vehicleYear ||
             "N/A"
         );
 
@@ -1764,6 +1859,14 @@ function createInvoice(){
             vehicle ||
             "N/A",
 
+        model:
+            vehicleModel ||
+            "N/A",
+
+        year:
+            vehicleYear ||
+            "N/A",
+
         address:
             address ||
             "Dubai, UAE",
@@ -1854,6 +1957,12 @@ function createInvoice(){
 
             vehicle:
                 vehicle,
+
+            model:
+                vehicleModel,
+
+            year:
+                vehicleYear,
 
             address:
                 address
