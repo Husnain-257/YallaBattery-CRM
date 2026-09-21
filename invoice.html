@@ -184,13 +184,22 @@ body{
     line-height:1.6;
 }
 
-/* CUSTOMER */
+/* =========================
+   CUSTOMER + VEHICLE
+========================= */
+
+.customer-vehicle-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:16px;
+}
 
 .section-box{
     border:1px solid #d6dde1;
-    margin-top:16px;
     border-radius:5px;
     overflow:hidden;
+    margin-top:0;
 }
 
 .section-header{
@@ -218,6 +227,25 @@ body{
 }
 
 .customer-table .label{
+    width:95px;
+    font-weight:800;
+    color:#333;
+}
+
+/* VEHICLE DETAILS */
+
+.vehicle-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.vehicle-table td{
+    padding:4px 0;
+    font-size:12px;
+    vertical-align:top;
+}
+
+.vehicle-table .label{
     width:95px;
     font-weight:800;
     color:#333;
@@ -460,6 +488,10 @@ body{
         text-align:left;
     }
 
+    .customer-vehicle-grid{
+        grid-template-columns:1fr;
+    }
+
     .bottom-grid{
         grid-template-columns:1fr;
     }
@@ -554,6 +586,7 @@ body{
         color:#ffb800 !important;
     }
 
+    .customer-vehicle-grid,
     .section-box,
     .service-box,
     .payment-box,
@@ -855,79 +888,104 @@ body{
     </div>
 
 
-    <!-- CUSTOMER DETAILS -->
+    <!-- CUSTOMER + VEHICLE DETAILS -->
 
-    <div class="section-box">
+    <div class="customer-vehicle-grid">
 
-        <div class="section-header">
-            CUSTOMER DETAILS
+        <!-- CUSTOMER DETAILS -->
+
+        <div class="section-box">
+
+            <div class="section-header">
+                CUSTOMER DETAILS
+            </div>
+
+            <div class="section-body">
+
+                <table class="customer-table">
+
+                    <tr>
+
+                        <td class="label">
+                            Name
+                        </td>
+
+                        <td id="outName">
+                            : Walk-in Customer
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="label">
+                            Phone
+                        </td>
+
+                        <td id="outPhone">
+                            : 052 123 4567
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="label">
+                            Email
+                        </td>
+
+                        <td id="outEmail">
+                            : N/A
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="label">
+                            Address
+                        </td>
+
+                        <td id="outAddress">
+                            : Dubai, UAE
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
         </div>
 
-        <div class="section-body">
 
-            <table class="customer-table">
+        <!-- VEHICLE DETAILS -->
 
-                <tr>
+        <div class="section-box">
 
-                    <td class="label">
-                        Name
-                    </td>
+            <div class="section-header">
+                VEHICLE DETAILS
+            </div>
 
-                    <td id="outName">
-                        : Walk-in Customer
-                    </td>
+            <div class="section-body">
 
-                </tr>
+                <table class="vehicle-table">
 
-                <tr>
+                    <tr>
 
-                    <td class="label">
-                        Phone
-                    </td>
+                        <td class="label">
+                            Vehicle
+                        </td>
 
-                    <td id="outPhone">
-                        : 052 123 4567
-                    </td>
+                        <td id="outVehicle">
+                            : N/A
+                        </td>
 
-                </tr>
+                    </tr>
 
-                <tr>
+                </table>
 
-                    <td class="label">
-                        Email
-                    </td>
-
-                    <td id="outEmail">
-                        : N/A
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td class="label">
-                        Address
-                    </td>
-
-                    <td id="outAddress">
-                        : Dubai, UAE
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td class="label">
-                        Vehicle
-                    </td>
-
-                    <td id="outVehicle">
-                        : N/A
-                    </td>
-
-                </tr>
-
-            </table>
+            </div>
 
         </div>
 
@@ -1542,7 +1600,7 @@ function createInvoice(){
 
 
     /* =========================
-       VEHICLE
+       VEHICLE DETAILS
     ========================= */
 
     document
