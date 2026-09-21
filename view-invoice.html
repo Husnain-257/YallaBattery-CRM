@@ -1370,22 +1370,6 @@ function loadInvoice(){
         );
 
 
-    let subtotal =
-        numberValue(
-            invoice.subtotal
-        );
-
-
-    /* CALCULATE SUBTOTAL IF MISSING */
-
-    if(!subtotal){
-
-        subtotal =
-            qty * unitPrice;
-
-    }
-
-
     const discount =
         numberValue(
             invoice.discount
@@ -1393,18 +1377,43 @@ function loadInvoice(){
 
 
     /* =====================================
-       VAT
-       YES = 5%
-       NO  = 0%
+       VAT MODE
+       
+       YES:
+       Unit Price is BEFORE VAT.
+       VAT 5% is added.
+
+       NO:
+       Unit Price is VAT-INCLUSIVE.
+       VAT is extracted from the
+       entered selling price.
     ===================================== */
 
     let chargeVat =
-        invoice.chargeVat;
+        invoice.vatCharge;
 
 
     /*
-       Support older saved invoices.
-       If chargeVat is missing, use saved VAT.
+       Support older invoices that may
+       have used chargeVat.
+    */
+
+    if(
+        chargeVat === undefined ||
+        chargeVat === null ||
+        chargeVat === ""
+    ){
+
+        chargeVat =
+            invoice.chargeVat;
+
+    }
+
+
+    /*
+       If VAT mode is still missing,
+       use saved VAT amount to determine
+       the mode where possible.
     */
 
     if(
@@ -1429,12 +1438,6 @@ function loadInvoice(){
 
         }else{
 
-            /*
-               Old invoices without
-               chargeVat information
-               keep the previous 5% behavior.
-            */
-
             chargeVat = "YES";
 
         }
@@ -1443,37 +1446,88 @@ function loadInvoice(){
 
 
     chargeVat =
-        String(chargeVat).toUpperCase();
+        String(chargeVat)
+        .toUpperCase()
+        .trim();
 
 
-    const taxableAmount =
-        Math.max(
-            subtotal - discount,
-            0
-        );
+    /* =====================================
+       CALCULATIONS
+    ===================================== */
+
+    const grossAmount =
+        qty * unitPrice;
 
 
+    let subtotal = 0;
     let vat = 0;
+    let grandTotal = 0;
 
 
     if(chargeVat === "YES"){
 
+        /*
+           VAT YES
+
+           Example:
+           Unit Price = 450.00
+
+           Subtotal = 450.00
+           VAT      = 22.50
+           Total    = 472.50
+        */
+
+        subtotal =
+            Math.max(
+                grossAmount - discount,
+                0
+            );
+
+
         vat =
-            taxableAmount * 0.05;
+            subtotal * 0.05;
+
+
+        grandTotal =
+            subtotal + vat;
 
     }else{
 
-        vat = 0;
+        /*
+           VAT NO
+
+           Entered price is VAT-INCLUSIVE.
+
+           Example:
+           Unit Price = 472.50
+
+           VAT-inclusive total = 472.50
+
+           Net amount:
+           472.50 / 1.05 = 450.00
+
+           VAT:
+           472.50 - 450.00 = 22.50
+
+           Grand Total remains:
+           472.50
+        */
+
+        grandTotal =
+            Math.max(
+                grossAmount - discount,
+                0
+            );
+
+
+        subtotal =
+            grandTotal / 1.05;
+
+
+        vat =
+            grandTotal - subtotal;
 
     }
-
-
-    /* =====================================
-       GRAND TOTAL
-    ===================================== */
-
-    const grandTotal =
-        taxableAmount + vat;
 
 
     /* =====================================
@@ -1485,7 +1539,7 @@ function loadInvoice(){
         .textContent =
         chargeVat === "YES"
         ? "VAT 5%"
-        : "VAT 0%";
+        : "VAT 5% (Included)";
 
 
     /* =====================================
