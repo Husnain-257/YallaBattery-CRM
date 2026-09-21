@@ -810,7 +810,7 @@ body{
 
             <div class="totalRow">
 
-                <span>
+                <span id="vatLabel">
                     VAT 5%
                 </span>
 
@@ -968,14 +968,9 @@ body{
 
 /* =========================================
    GET SELECTED INVOICE
-   FIXED VERSION
 ========================================= */
 
 function getSelectedInvoice(){
-
-    /*
-       First try the main key
-    */
 
     const possibleKeys = [
 
@@ -989,9 +984,7 @@ function getSelectedInvoice(){
     ];
 
 
-    /*
-       Try localStorage
-    */
+    /* TRY LOCAL STORAGE */
 
     for(let key of possibleKeys){
 
@@ -1026,9 +1019,7 @@ function getSelectedInvoice(){
     }
 
 
-    /*
-       Try sessionStorage
-    */
+    /* TRY SESSION STORAGE */
 
     for(let key of possibleKeys){
 
@@ -1063,11 +1054,7 @@ function getSelectedInvoice(){
     }
 
 
-    /*
-       Try URL invoice data
-       Example:
-       viewinvoice.html?invoice=...
-    */
+    /* TRY URL */
 
     try{
 
@@ -1117,10 +1104,6 @@ function getSelectedInvoice(){
 
     }
 
-
-    /*
-       Nothing found
-    */
 
     return null;
 
@@ -1190,9 +1173,7 @@ function loadInvoice(){
         getSelectedInvoice();
 
 
-    /*
-       Invoice not found
-    */
+    /* INVOICE NOT FOUND */
 
     if(!invoice){
 
@@ -1208,10 +1189,6 @@ function loadInvoice(){
 
     }
 
-
-    /*
-       Make invoice visible
-    */
 
     document
         .getElementById("invoiceContainer")
@@ -1363,9 +1340,7 @@ function loadInvoice(){
         );
 
 
-    /*
-       WARRANTY
-    */
+    /* WARRANTY */
 
     document
         .getElementById("warranty")
@@ -1401,10 +1376,7 @@ function loadInvoice(){
         );
 
 
-    /*
-       If subtotal does not exist,
-       calculate it automatically
-    */
+    /* CALCULATE SUBTOTAL IF MISSING */
 
     if(!subtotal){
 
@@ -1420,55 +1392,100 @@ function loadInvoice(){
         );
 
 
-    let vat =
-        numberValue(
-            invoice.vat ||
-            invoice.vatAmount
-        );
+    /* =====================================
+       VAT
+       YES = 5%
+       NO  = 0%
+    ===================================== */
+
+    let chargeVat =
+        invoice.chargeVat;
 
 
     /*
-       If VAT is not saved,
-       calculate 5% after discount
+       Support older saved invoices.
+       If chargeVat is missing, use saved VAT.
     */
 
     if(
-        !vat &&
-        invoice.vat !== 0 &&
-        invoice.vat !== "0"
+        chargeVat === undefined ||
+        chargeVat === null ||
+        chargeVat === ""
     ){
 
-        vat =
-            (subtotal - discount) * 0.05;
+        if(
+            invoice.vat !== undefined &&
+            invoice.vat !== null &&
+            invoice.vat !== ""
+        ){
+
+            const savedVat =
+                numberValue(invoice.vat);
+
+            chargeVat =
+                savedVat > 0
+                ? "YES"
+                : "NO";
+
+        }else{
+
+            /*
+               Old invoices without
+               chargeVat information
+               keep the previous 5% behavior.
+            */
+
+            chargeVat = "YES";
+
+        }
 
     }
 
 
-    let grandTotal =
-        numberValue(
-            invoice.grandTotal ||
-            invoice.total ||
-            invoice.totalAmount
+    chargeVat =
+        String(chargeVat).toUpperCase();
+
+
+    const taxableAmount =
+        Math.max(
+            subtotal - discount,
+            0
         );
 
 
-    /*
-       If grand total is not saved,
-       calculate automatically
-    */
+    let vat = 0;
 
-    if(!grandTotal){
 
-        grandTotal =
-            subtotal -
-            discount +
-            vat;
+    if(chargeVat === "YES"){
+
+        vat =
+            taxableAmount * 0.05;
+
+    }else{
+
+        vat = 0;
 
     }
 
 
-    const itemTotal =
-        qty * unitPrice;
+    /* =====================================
+       GRAND TOTAL
+    ===================================== */
+
+    const grandTotal =
+        taxableAmount + vat;
+
+
+    /* =====================================
+       VAT LABEL
+    ===================================== */
+
+    document
+        .getElementById("vatLabel")
+        .textContent =
+        chargeVat === "YES"
+        ? "VAT 5%"
+        : "VAT 0%";
 
 
     /* =====================================
@@ -1485,6 +1502,10 @@ function loadInvoice(){
         .getElementById("unitPrice")
         .textContent =
         unitPrice.toFixed(2);
+
+
+    const itemTotal =
+        qty * unitPrice;
 
 
     document
@@ -1545,10 +1566,6 @@ function loadInvoice(){
 ========================================= */
 
 function goBack(){
-
-    /*
-       Try invoice history first
-    */
 
     window.location.href =
         "invoice-history.html";
