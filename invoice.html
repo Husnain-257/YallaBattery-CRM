@@ -315,33 +315,57 @@ body{
     color:#17202a;
 }
 
-/* PAYMENT + TOTALS */
+/* =========================
+   PAYMENT + SHOP WARRANTY + TOTALS
+========================= */
 
 .bottom-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:0.75fr 1.25fr;
     gap:20px;
     margin-top:16px;
 }
 
-.payment-box{
+.payment-warranty-area{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.payment-box,
+.shop-warranty-box{
     border:1px solid #d6dde1;
     border-radius:5px;
     overflow:hidden;
 }
 
-.payment-header{
+.payment-header,
+.shop-warranty-header{
     background:#00525b;
     color:#ffffff;
-    padding:9px 12px;
-    font-size:13px;
+    padding:9px 8px;
+    font-size:12px;
     font-weight:800;
+    text-align:center;
 }
 
-.payment-body{
-    padding:12px;
-    font-size:12px;
+.payment-body,
+.shop-warranty-body{
+    padding:10px 7px;
+    font-size:11px;
     line-height:1.7;
+}
+
+.shop-warranty-options{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:3px;
+}
+
+.shop-warranty-option{
+    font-weight:800;
+    white-space:nowrap;
 }
 
 .totals{
@@ -496,6 +520,10 @@ body{
         grid-template-columns:1fr;
     }
 
+    .payment-warranty-area{
+        grid-template-columns:1fr 1fr;
+    }
+
     .brand-name{
         font-size:28px;
     }
@@ -567,6 +595,7 @@ body{
     .section-header,
     .service-header,
     .payment-header,
+    .shop-warranty-header,
     .items-table th{
         background:#00525b !important;
         color:#ffffff !important;
@@ -590,6 +619,7 @@ body{
     .section-box,
     .service-box,
     .payment-box,
+    .shop-warranty-box,
     .items-table,
     .features-bar,
     .notes-signature,
@@ -669,7 +699,6 @@ body{
             >
         </div>
 
-        <!-- CUSTOMER TRN - OPTIONAL -->
         <div class="form-group">
             <label>Customer TRN (Optional)</label>
             <input
@@ -679,7 +708,6 @@ body{
             >
         </div>
 
-        <!-- VEHICLE -->
         <div class="form-group">
             <label>Vehicle</label>
             <input
@@ -689,7 +717,6 @@ body{
             >
         </div>
 
-        <!-- MODEL -->
         <div class="form-group">
             <label>Model</label>
             <input
@@ -699,7 +726,6 @@ body{
             >
         </div>
 
-        <!-- YEAR -->
         <div class="form-group">
             <label>Year</label>
             <input
@@ -796,6 +822,28 @@ body{
 
                 <option value="Link">
                     Payment Link
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- SHOP WARRANTY -->
+
+        <div class="form-group">
+
+            <label>
+                Shop Warranty
+            </label>
+
+            <select id="shopWarranty">
+
+                <option value="Yes">
+                    Yes
+                </option>
+
+                <option value="No">
+                    No
                 </option>
 
             </select>
@@ -931,8 +979,6 @@ body{
 
     <div class="customer-vehicle-grid">
 
-        <!-- CUSTOMER DETAILS -->
-
         <div class="section-box">
 
             <div class="section-header">
@@ -979,8 +1025,6 @@ body{
 
                     </tr>
 
-                    <!-- CUSTOMER TRN - HIDDEN UNTIL ENTERED -->
-
                     <tr id="customerTrnRow" style="display:none;">
 
                         <td class="label">
@@ -1011,8 +1055,6 @@ body{
 
         </div>
 
-
-        <!-- VEHICLE DETAILS -->
 
         <div class="section-box">
 
@@ -1155,38 +1197,79 @@ body{
     </table>
 
 
-    <!-- PAYMENT + TOTALS -->
+    <!-- PAYMENT + SHOP WARRANTY + TOTALS -->
 
     <div class="bottom-grid">
 
-        <div class="payment-box">
+        <div class="payment-warranty-area">
 
-            <div class="payment-header">
-                PAYMENT METHOD
+            <!-- PAYMENT METHOD -->
+
+            <div class="payment-box">
+
+                <div class="payment-header">
+                    PAYMENT METHOD
+                </div>
+
+                <div class="payment-body">
+
+                    <strong>
+                        Payment:
+                    </strong>
+
+                    <span id="outPayment">
+                        Card
+                    </span>
+
+                    <br>
+
+                    <strong>
+                        Status:
+                    </strong>
+
+                    Paid
+
+                </div>
+
             </div>
 
-            <div class="payment-body">
 
-                <strong>
-                    Payment:
-                </strong>
+            <!-- SHOP WARRANTY -->
 
-                <span id="outPayment">
-                    Card
-                </span>
+            <div class="shop-warranty-box">
 
-                <br>
+                <div class="shop-warranty-header">
+                    SHOP WARRANTY
+                </div>
 
-                <strong>
-                    Status:
-                </strong>
+                <div class="shop-warranty-body">
 
-                Paid
+                    <div class="shop-warranty-options">
+
+                        <span class="shop-warranty-option">
+                            <span id="warrantyYes">
+                                ☑
+                            </span>
+                            YES
+                        </span>
+
+                        <span class="shop-warranty-option">
+                            <span id="warrantyNo">
+                                ☐
+                            </span>
+                            NO
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
+
+        <!-- TOTALS -->
 
         <div>
 
@@ -1446,10 +1529,6 @@ function createInvoice(){
         .trim();
 
 
-    /* =========================
-       CUSTOMER TRN
-    ========================= */
-
     const customerTrn =
         document
         .getElementById("customerTrn")
@@ -1464,20 +1543,12 @@ function createInvoice(){
         .trim();
 
 
-    /* =========================
-       VEHICLE MODEL
-    ========================= */
-
     const vehicleModel =
         document
         .getElementById("vehicleModel")
         .value
         .trim();
 
-
-    /* =========================
-       VEHICLE YEAR
-    ========================= */
 
     const vehicleYear =
         document
@@ -1540,6 +1611,16 @@ function createInvoice(){
     const payment =
         document
         .getElementById("payment")
+        .value;
+
+
+    /* =========================
+       SHOP WARRANTY
+    ========================= */
+
+    const shopWarranty =
+        document
+        .getElementById("shopWarranty")
         .value;
 
 
@@ -1767,10 +1848,6 @@ function createInvoice(){
         );
 
 
-    /* =========================
-       MODEL
-    ========================= */
-
     document
     .getElementById("outModel")
     .textContent =
@@ -1780,10 +1857,6 @@ function createInvoice(){
             "N/A"
         );
 
-
-    /* =========================
-       YEAR
-    ========================= */
 
     document
     .getElementById("outYear")
@@ -1888,6 +1961,32 @@ function createInvoice(){
 
 
     /* =========================
+       SHOP WARRANTY OUTPUT
+    ========================= */
+
+    const warrantyYes =
+        document
+        .getElementById("warrantyYes");
+
+    const warrantyNo =
+        document
+        .getElementById("warrantyNo");
+
+
+    if(shopWarranty === "Yes"){
+
+        warrantyYes.textContent = "☑";
+        warrantyNo.textContent = "☐";
+
+    }else{
+
+        warrantyYes.textContent = "☐";
+        warrantyNo.textContent = "☑";
+
+    }
+
+
+    /* =========================
        TOTALS
     ========================= */
 
@@ -1969,6 +2068,9 @@ function createInvoice(){
         warranty:
             warranty ||
             "",
+
+        shopWarranty:
+            shopWarranty,
 
         qty:
             qty,
@@ -2111,4 +2213,4 @@ function goBack(){
 </script>
 
 </body>
-</html>
+    </html>
