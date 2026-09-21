@@ -26,15 +26,18 @@ body{
     font-family:Roboto,Arial,Helvetica,sans-serif;
 }
 
-/* ACTION BAR */
+
+/* ================================
+   ACTION BUTTONS
+================================ */
 
 .actions{
     width:794px;
-    max-width:94%;
+    max-width:calc(100% - 30px);
     margin:0 auto 15px;
     display:flex;
-    gap:10px;
     justify-content:flex-end;
+    gap:10px;
     flex-wrap:wrap;
 }
 
@@ -53,7 +56,7 @@ body{
 }
 
 .backBtn{
-    background:#00525b;
+    background:#17202a;
     color:white;
 }
 
@@ -62,27 +65,30 @@ body{
 }
 
 
-/* INVOICE */
+/* ================================
+   INVOICE
+================================ */
 
 .invoice{
     width:794px;
-    min-height:1123px;
-    max-width:94%;
-    margin:auto;
+    max-width:calc(100% - 30px);
+    margin:25px auto;
     background:white;
-    padding:35px;
+    padding:25px;
     box-shadow:0 4px 18px rgba(0,0,0,.12);
 }
 
 
-/* HEADER */
+/* ================================
+   HEADER
+================================ */
 
-.invoiceHeader{
+.invoice-header{
     display:flex;
     justify-content:space-between;
     align-items:flex-start;
-    border-bottom:3px solid #ffb800;
-    padding-bottom:15px;
+    border-bottom:3px solid #00525b;
+    padding-bottom:14px;
 }
 
 .brand h1{
@@ -93,139 +99,125 @@ body{
     letter-spacing:1px;
 }
 
-.brand .tagline{
+.tagline{
     margin-top:4px;
     color:#666;
-    font-size:11px;
-    font-weight:500;
-    letter-spacing:1px;
+    font-size:12px;
+    font-weight:700;
 }
 
-.taxBox{
-    text-align:right;
-}
-
-.taxTitle{
-    color:#00525b;
-    font-size:21px;
-    font-weight:900;
-    margin-bottom:8px;
-}
-
-.taxInfo{
-    font-size:11px;
-    line-height:1.7;
-    color:#444;
-}
-
-.taxInfo strong{
+.tax-box{
+    background:#ffb800;
     color:#17202a;
+    padding:9px 12px;
+    border-radius:5px;
+    text-align:right;
+    min-width:170px;
 }
 
-
-/* CUSTOMER */
-
-.sectionTitle{
-    background:#00525b;
-    color:white;
-    padding:8px 10px;
-    margin-top:18px;
-    font-size:12px;
-    font-weight:700;
-    text-transform:uppercase;
-}
-
-.infoTable{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.infoTable td{
-    border:1px solid #ddd;
-    padding:8px 9px;
-    font-size:11px;
-}
-
-.infoTable .label{
-    width:18%;
-    background:#f4f6f7;
-    font-weight:700;
-    color:#444;
-}
-
-
-/* VEHICLE */
-
-.vehicleGrid{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    border:1px solid #ddd;
-}
-
-.vehicleBox{
-    padding:9px;
-    border-right:1px solid #ddd;
-}
-
-.vehicleBox:last-child{
-    border-right:none;
-}
-
-.vehicleLabel{
-    font-size:9px;
-    color:#777;
-    text-transform:uppercase;
-    margin-bottom:4px;
-}
-
-.vehicleValue{
-    font-size:12px;
-    font-weight:700;
-}
-
-
-/* SERVICE */
-
-.serviceBox{
-    margin-top:18px;
-    border:1px solid #ddd;
-    padding:12px;
-    background:#fafcfc;
-}
-
-.serviceLabel{
-    font-size:9px;
-    color:#777;
-    text-transform:uppercase;
+.tax-title{
+    font-size:15px;
+    font-weight:900;
     margin-bottom:5px;
 }
 
-.serviceValue{
-    color:#00525b;
-    font-size:13px;
-    font-weight:800;
+.tax-info{
+    font-size:10px;
+    line-height:1.55;
 }
 
 
-/* ITEMS */
+/* ================================
+   CUSTOMER + VEHICLE
+================================ */
+
+.customer-vehicle{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:16px;
+}
+
+.section-box{
+    border:1px solid #d6dde1;
+    border-radius:5px;
+    overflow:hidden;
+}
+
+.section-head{
+    background:#00525b;
+    color:white;
+    padding:8px 10px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.section-body{
+    padding:10px;
+}
+
+.customer-row{
+    display:grid;
+    grid-template-columns:75px 1fr;
+    gap:8px;
+    padding:4px 0;
+    font-size:11px;
+}
+
+.customer-label{
+    font-weight:700;
+    color:#555;
+}
+
+.customer-value{
+    color:#17202a;
+    word-break:break-word;
+}
+
+#customerTrnRow{
+    display:none;
+}
+
+
+/* ================================
+   SERVICE
+================================ */
+
+.service-box{
+    margin-top:12px;
+    border:1px solid #d6dde1;
+    border-radius:5px;
+    overflow:hidden;
+}
+
+.service-body{
+    padding:10px;
+    font-size:12px;
+    font-weight:700;
+}
+
+
+/* ================================
+   ITEMS
+================================ */
 
 .items{
     width:100%;
     border-collapse:collapse;
-    margin-top:18px;
+    margin-top:12px;
 }
 
 .items th{
     background:#00525b;
     color:white;
-    padding:9px;
+    padding:9px 8px;
     font-size:10px;
     text-align:left;
 }
 
 .items td{
-    border:1px solid #ddd;
-    padding:10px 9px;
+    border:1px solid #d6dde1;
+    padding:10px 8px;
     font-size:11px;
 }
 
@@ -251,70 +243,106 @@ body{
 }
 
 
-/* TOTALS */
+/* ================================
+   BOTTOM GRID
+================================ */
 
-.bottomSection{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    margin-top:18px;
+.bottom-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:15px;
 }
 
-.paymentBox{
-    width:50%;
-    border:1px solid #ddd;
-    padding:12px;
+
+/* ================================
+   PAYMENT
+================================ */
+
+.payment-box,
+.warranty-box{
+    border:1px solid #d6dde1;
+    border-radius:5px;
+    overflow:hidden;
+    margin-bottom:10px;
 }
 
-.paymentTitle{
-    color:#00525b;
-    font-size:11px;
-    font-weight:800;
-    margin-bottom:7px;
-}
-
-.paymentValue{
+.box-head{
+    background:#00525b;
+    color:white;
+    padding:8px 10px;
     font-size:12px;
     font-weight:700;
 }
 
-.totalBox{
-    width:45%;
-}
-
-.totalRow{
-    display:flex;
-    justify-content:space-between;
-    padding:6px 0;
+.box-body{
+    padding:10px;
     font-size:11px;
-    border-bottom:1px solid #eee;
 }
 
-.grandTotal{
-    margin-top:5px;
-    padding:11px;
-    background:#00525b;
-    color:white;
+.payment-value{
+    font-weight:700;
+}
+
+
+/* ================================
+   WARRANTY
+================================ */
+
+.warranty-options{
+    display:flex;
+    gap:20px;
+    font-size:11px;
+    font-weight:700;
+}
+
+
+/* ================================
+   TOTALS
+================================ */
+
+.total-box{
+    border:1px solid #d6dde1;
+    border-radius:5px;
+    overflow:hidden;
+}
+
+.total-row{
     display:flex;
     justify-content:space-between;
+    padding:8px 10px;
+    border-bottom:1px solid #eee;
+    font-size:11px;
+}
+
+.grand-total{
+    display:flex;
+    justify-content:space-between;
+    background:#ffb800;
+    color:#17202a;
+    padding:11px 10px;
     font-size:14px;
     font-weight:900;
 }
 
 
-/* FEATURES */
+/* ================================
+   FEATURES
+================================ */
 
 .features{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    margin-top:20px;
-    border:1px solid #ddd;
+    margin-top:15px;
+    border:1px solid #d6dde1;
+    border-radius:5px;
+    overflow:hidden;
 }
 
 .feature{
     text-align:center;
     padding:10px 5px;
-    border-right:1px solid #ddd;
+    border-right:1px solid #d6dde1;
 }
 
 .feature:last-child{
@@ -333,15 +361,17 @@ body{
 }
 
 
-/* TERMS */
+/* ================================
+   TERMS
+================================ */
 
 .terms{
-    margin-top:18px;
-    border-top:1px solid #ddd;
+    margin-top:15px;
+    border-top:1px solid #d6dde1;
     padding-top:10px;
 }
 
-.termsTitle{
+.terms-title{
     font-size:10px;
     font-weight:800;
     color:#00525b;
@@ -356,40 +386,37 @@ body{
 }
 
 
-/* FOOTER */
+/* ================================
+   FOOTER
+================================ */
 
 .footer{
-    margin-top:22px;
-    border-top:3px solid #ffb800;
-    padding-top:12px;
+    margin-top:15px;
+    background:#00525b;
+    color:white;
     text-align:center;
+    padding:10px;
+    border-radius:4px;
 }
 
-.footerCompany{
-    font-size:13px;
+.footer-company{
+    font-size:12px;
     font-weight:900;
-    color:#00525b;
 }
 
-.footerText{
-    margin-top:4px;
-    font-size:9px;
-    color:#666;
-}
-
-.thankYou{
-    margin-top:8px;
-    font-family:"Great Vibes",cursive;
-    font-size:23px;
-    color:#00525b;
+.footer-text{
+    margin-top:3px;
+    font-size:8px;
 }
 
 
-/* ERROR */
+/* ================================
+   ERROR
+================================ */
 
 .error{
     width:794px;
-    max-width:94%;
+    max-width:calc(100% - 30px);
     margin:80px auto;
     background:white;
     padding:40px;
@@ -412,7 +439,72 @@ body{
 }
 
 
-/* PRINT */
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:700px){
+
+    .invoice,
+    .actions{
+        width:calc(100% - 20px);
+        max-width:none;
+    }
+
+    .invoice{
+        padding:15px;
+    }
+
+    .invoice-header{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .brand h1{
+        font-size:28px;
+    }
+
+    .tax-box{
+        width:100%;
+        text-align:left;
+    }
+
+    .customer-vehicle{
+        grid-template-columns:1fr;
+    }
+
+    .bottom-grid{
+        grid-template-columns:1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .feature{
+        border-right:none;
+        border-bottom:1px solid #d6dde1;
+    }
+
+    .feature:last-child{
+        border-bottom:none;
+    }
+
+    .items{
+        font-size:9px;
+    }
+
+    .items th,
+    .items td{
+        padding:7px 5px;
+    }
+
+}
+
+
+/* ================================
+   PRINT
+================================ */
 
 @media print{
 
@@ -426,11 +518,10 @@ body{
     }
 
     .invoice{
-        width:210mm;
+        width:794px;
         max-width:none;
-        min-height:297mm;
-        margin:0;
-        padding:12mm;
+        margin:0 auto;
+        padding:25px;
         box-shadow:none;
     }
 
@@ -439,58 +530,30 @@ body{
         margin:0;
     }
 
-}
-
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    body{
-        padding:10px 0;
+    .section-box,
+    .service-box,
+    .items,
+    .payment-box,
+    .warranty-box,
+    .total-box,
+    .features,
+    .terms,
+    .footer{
+        page-break-inside:avoid;
     }
 
-    .invoice{
-        padding:18px;
+    .items{
+        font-size:12px;
     }
 
-    .invoiceHeader{
-        gap:15px;
+    .items th,
+    .items td{
+        padding:10px 7px;
     }
 
-    .brand h1{
-        font-size:25px;
-    }
-
-    .taxTitle{
-        font-size:16px;
-    }
-
-    .bottomSection{
-        flex-direction:column;
-    }
-
-    .paymentBox,
-    .totalBox{
-        width:100%;
-    }
-
-    .vehicleGrid{
-        grid-template-columns:1fr;
-    }
-
-    .vehicleBox{
-        border-right:none;
-        border-bottom:1px solid #ddd;
-    }
-
-    .features{
-        grid-template-columns:1fr;
-    }
-
-    .feature{
-        border-right:none;
-        border-bottom:1px solid #ddd;
+    *{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
     }
 
 }
@@ -502,7 +565,9 @@ body{
 <body>
 
 
-<!-- ACTIONS -->
+<!-- ================================
+     ACTION BUTTONS
+================================ -->
 
 <div class="actions">
 
@@ -523,7 +588,9 @@ body{
 </div>
 
 
-<!-- INVOICE -->
+<!-- ================================
+     INVOICE
+================================ -->
 
 <div
     id="invoiceContainer"
@@ -532,7 +599,7 @@ body{
 
     <!-- HEADER -->
 
-    <div class="invoiceHeader">
+    <div class="invoice-header">
 
         <div class="brand">
 
@@ -547,14 +614,14 @@ body{
         </div>
 
 
-        <div class="taxBox">
+        <div class="tax-box">
 
-            <div class="taxTitle">
+            <div class="tax-title">
                 TAX INVOICE
             </div>
 
             <div
-                class="taxInfo"
+                class="tax-info"
                 id="invoiceInfo"
             >
             </div>
@@ -564,116 +631,157 @@ body{
     </div>
 
 
-    <!-- CUSTOMER -->
+    <!-- CUSTOMER + VEHICLE -->
 
-    <div class="sectionTitle">
-        Customer Details
-    </div>
+    <div class="customer-vehicle">
 
 
-    <table class="infoTable">
+        <!-- CUSTOMER -->
 
-        <tr>
+        <div class="section-box">
 
-            <td class="label">
-                Name
-            </td>
-
-            <td id="customerName">
-            </td>
-
-            <td class="label">
-                Phone
-            </td>
-
-            <td id="phone">
-            </td>
-
-        </tr>
-
-
-        <tr>
-
-            <td class="label">
-                Email
-            </td>
-
-            <td id="email">
-            </td>
-
-            <td class="label">
-                Customer TRN
-            </td>
-
-            <td id="customerTrn">
-            </td>
-
-        </tr>
-
-
-        <tr>
-
-            <td class="label">
-                Address
-            </td>
-
-            <td colspan="3" id="address">
-            </td>
-
-        </tr>
-
-    </table>
-
-
-    <!-- VEHICLE -->
-
-    <div class="sectionTitle">
-        Vehicle Details
-    </div>
-
-
-    <div class="vehicleGrid">
-
-        <div class="vehicleBox">
-
-            <div class="vehicleLabel">
-                Vehicle
+            <div class="section-head">
+                CUSTOMER DETAILS
             </div>
 
-            <div
-                class="vehicleValue"
-                id="vehicle"
-            >
-            </div>
+            <div class="section-body">
 
-        </div>
+                <div class="customer-row">
+
+                    <div class="customer-label">
+                        Name
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outName"
+                    >
+                    </div>
+
+                </div>
 
 
-        <div class="vehicleBox">
+                <div class="customer-row">
 
-            <div class="vehicleLabel">
-                Model
-            </div>
+                    <div class="customer-label">
+                        Phone
+                    </div>
 
-            <div
-                class="vehicleValue"
-                id="vehicleModel"
-            >
+                    <div
+                        class="customer-value"
+                        id="outPhone"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="customer-row">
+
+                    <div class="customer-label">
+                        Email
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outEmail"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="customer-row"
+                    id="customerTrnRow"
+                >
+
+                    <div class="customer-label">
+                        TRN
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outCustomerTrn"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="customer-row">
+
+                    <div class="customer-label">
+                        Address
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outAddress"
+                    >
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
 
-        <div class="vehicleBox">
+        <!-- VEHICLE -->
 
-            <div class="vehicleLabel">
-                Year
+        <div class="section-box">
+
+            <div class="section-head">
+                VEHICLE DETAILS
             </div>
 
-            <div
-                class="vehicleValue"
-                id="vehicleYear"
-            >
+            <div class="section-body">
+
+                <div class="customer-row">
+
+                    <div class="customer-label">
+                        Vehicle
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outVehicle"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="customer-row">
+
+                    <div class="customer-label">
+                        Model
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outModel"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div class="customer-row">
+
+                    <div class="customer-label">
+                        Year
+                    </div>
+
+                    <div
+                        class="customer-value"
+                        id="outYear"
+                    >
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -683,15 +791,15 @@ body{
 
     <!-- SERVICE -->
 
-    <div class="serviceBox">
+    <div class="service-box">
 
-        <div class="serviceLabel">
-            Service Provided
+        <div class="section-head">
+            SERVICE PROVIDED
         </div>
 
         <div
-            class="serviceValue"
-            id="service"
+            class="service-body"
+            id="outService"
         >
         </div>
 
@@ -707,19 +815,19 @@ body{
             <tr>
 
                 <th>
-                    Item Description
+                    ITEM DESCRIPTION
                 </th>
 
                 <th>
-                    Qty
+                    QTY
                 </th>
 
                 <th>
-                    Unit Price (AED)
+                    UNIT PRICE (AED)
                 </th>
 
                 <th>
-                    Total (AED)
+                    TOTAL (AED)
                 </th>
 
             </tr>
@@ -733,24 +841,24 @@ body{
 
                 <td>
 
-                    <strong id="item">
+                    <strong id="outItem">
                     </strong>
 
                     <span
                         class="warranty"
-                        id="warranty"
+                        id="outWarranty"
                     >
                     </span>
 
                 </td>
 
-                <td id="qty">
+                <td id="outQty">
                 </td>
 
-                <td id="unitPrice">
+                <td id="outUnit">
                 </td>
 
-                <td id="itemTotal">
+                <td id="outItemTotal">
                 </td>
 
             </tr>
@@ -760,74 +868,116 @@ body{
     </table>
 
 
-    <!-- PAYMENT + TOTAL -->
+    <!-- BOTTOM -->
 
-    <div class="bottomSection">
+    <div class="bottom-grid">
 
 
-        <div class="paymentBox">
+        <!-- LEFT -->
 
-            <div class="paymentTitle">
-                PAYMENT METHOD
+        <div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="payment-box">
+
+                <div class="box-head">
+                    PAYMENT METHOD
+                </div>
+
+                <div class="box-body">
+
+                    <div
+                        class="payment-value"
+                        id="outPayment"
+                    >
+                    </div>
+
+                </div>
+
             </div>
 
-            <div
-                class="paymentValue"
-                id="payment"
-            >
+
+            <!-- WARRANTY -->
+
+            <div class="warranty-box">
+
+                <div class="box-head">
+                    SHOP WARRANTY
+                </div>
+
+                <div class="box-body">
+
+                    <div class="warranty-options">
+
+                        <span id="warrantyYes">
+                            ☐ YES
+                        </span>
+
+                        <span id="warrantyNo">
+                            ☐ NO
+                        </span>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
 
-        <div class="totalBox">
+        <!-- TOTALS -->
 
-            <div class="totalRow">
+        <div class="total-box">
+
+            <div class="total-row">
 
                 <span>
                     Subtotal
                 </span>
 
-                <strong id="subtotal">
+                <strong id="outSubtotal">
                     AED 0.00
                 </strong>
 
             </div>
 
 
-            <div class="totalRow">
+            <div class="total-row">
 
                 <span>
                     Discount
                 </span>
 
-                <strong id="discount">
+                <strong id="outDiscount">
                     AED 0.00
                 </strong>
 
             </div>
 
 
-            <div class="totalRow">
+            <div class="total-row">
 
                 <span id="vatLabel">
                     VAT 5%
                 </span>
 
-                <strong id="vat">
+                <strong id="outVat">
                     AED 0.00
                 </strong>
 
             </div>
 
 
-            <div class="grandTotal">
+            <div class="grand-total">
 
                 <span>
                     GRAND TOTAL
                 </span>
 
-                <span id="grandTotal">
+                <span id="outTotal">
                     AED 0.00
                 </span>
 
@@ -887,24 +1037,48 @@ body{
 
     <div class="terms">
 
-        <div class="termsTitle">
+        <div class="terms-title">
             TERMS & CONDITIONS
         </div>
 
         <p>
-            1. Battery warranty is subject to manufacturer terms and conditions.
+            1. All batteries are covered only for the stated warranty period.
         </p>
 
         <p>
-            2. Warranty does not cover misuse, physical damage, incorrect installation or electrical faults.
+            2. During the warranty period, only one warranty claim is allowed per battery.
         </p>
 
         <p>
-            3. Customer is responsible for providing accurate vehicle and contact information.
+            3. Original invoice is required for any warranty claim.
         </p>
 
         <p>
-            4. All prices are in AED and VAT is calculated at 5% where applicable.
+            4. Warranty covers manufacturing defects only and does not cover physical damage, accident, misuse, abuse, incorrect installation, modification, overheating, overcharging, deep discharge or improper maintenance.
+        </p>
+
+        <p>
+            5. Customer is responsible for ensuring correct installation and compatibility with the vehicle/application.
+        </p>
+
+        <p>
+            6. All sold items and batteries are non-refundable. No cash refund or exchange is allowed except for a valid warranty claim.
+        </p>
+
+        <p>
+            7. Warranty assessment is subject to inspection and testing by the company.
+        </p>
+
+        <p>
+            8. Warranty replacement does not create a new warranty period unless specifically stated.
+        </p>
+
+        <p>
+            9. If Shop Warranty is mentioned, AED 100 service charges apply. Otherwise, the customer must visit the shop for warranty service.
+        </p>
+
+        <p>
+            10. By accepting the battery/service, the customer confirms acceptance of these terms and conditions.
         </p>
 
     </div>
@@ -914,24 +1088,20 @@ body{
 
     <div class="footer">
 
-        <div class="footerCompany">
+        <div class="footer-company">
             INSTANT AUTO REPAIR SERVICES L.L.C.
         </div>
 
-        <div class="footerText">
+        <div class="footer-text">
             24/7 CAR BATTERY & ROADSIDE ASSISTANCE
         </div>
 
-        <div class="footerText">
-            +971 52 404 0699
+        <div class="footer-text">
+            +971 52 380 0568
             |
             info@yallabattery.ae
             |
             Dubai, UAE
-        </div>
-
-        <div class="thankYou">
-            Thank you for choosing Yalla Battery
         </div>
 
     </div>
@@ -939,8 +1109,9 @@ body{
 </div>
 
 
-
-<!-- ERROR -->
+<!-- ================================
+     ERROR
+================================ -->
 
 <div
     id="errorBox"
@@ -963,8 +1134,8 @@ body{
 </div>
 
 
-
 <script>
+
 
 /* =========================================
    GET SELECTED INVOICE
@@ -984,7 +1155,7 @@ function getSelectedInvoice(){
     ];
 
 
-    /* TRY LOCAL STORAGE */
+    /* LOCAL STORAGE */
 
     for(let key of possibleKeys){
 
@@ -998,7 +1169,10 @@ function getSelectedInvoice(){
                 const parsed =
                     JSON.parse(data);
 
-                if(parsed && typeof parsed === "object"){
+                if(
+                    parsed &&
+                    typeof parsed === "object"
+                ){
 
                     return parsed;
 
@@ -1019,7 +1193,7 @@ function getSelectedInvoice(){
     }
 
 
-    /* TRY SESSION STORAGE */
+    /* SESSION STORAGE */
 
     for(let key of possibleKeys){
 
@@ -1033,7 +1207,10 @@ function getSelectedInvoice(){
                 const parsed =
                     JSON.parse(data);
 
-                if(parsed && typeof parsed === "object"){
+                if(
+                    parsed &&
+                    typeof parsed === "object"
+                ){
 
                     return parsed;
 
@@ -1054,7 +1231,7 @@ function getSelectedInvoice(){
     }
 
 
-    /* TRY URL */
+    /* URL FALLBACK */
 
     try{
 
@@ -1200,7 +1377,7 @@ function loadInvoice(){
 
 
     /* =====================================
-       INVOICE INFO
+       COMPANY TRN
     ===================================== */
 
     const companyTrn =
@@ -1210,26 +1387,36 @@ function loadInvoice(){
         "105121363300003";
 
 
+    /* =====================================
+       INVOICE INFO
+    ===================================== */
+
     document
         .getElementById("invoiceInfo")
         .innerHTML = `
 
-        <strong>Invoice No:</strong>
-        ${safe(invoice.invoiceNo || invoice.invoiceNumber)}
-        <br>
+            <strong>Invoice No:</strong>
+            ${safe(
+                invoice.invoiceNo ||
+                invoice.invoiceNumber
+            )}
 
-        <strong>Date:</strong>
-        ${safe(invoice.date)}
-        <br>
+            <br>
 
-        <strong>Time:</strong>
-        ${safe(invoice.time)}
-        <br>
+            <strong>Date:</strong>
+            ${safe(invoice.date)}
 
-        <strong>TRN:</strong>
-        ${safe(companyTrn)}
+            <br>
 
-    `;
+            <strong>Time:</strong>
+            ${safe(invoice.time)}
+
+            <br>
+
+            <strong>TRN:</strong>
+            ${safe(companyTrn)}
+
+        `;
 
 
     /* =====================================
@@ -1237,7 +1424,7 @@ function loadInvoice(){
     ===================================== */
 
     document
-        .getElementById("customerName")
+        .getElementById("outName")
         .textContent =
         safe(
             invoice.customerName ||
@@ -1247,7 +1434,7 @@ function loadInvoice(){
 
 
     document
-        .getElementById("phone")
+        .getElementById("outPhone")
         .textContent =
         safe(
             invoice.phone ||
@@ -1256,7 +1443,7 @@ function loadInvoice(){
 
 
     document
-        .getElementById("email")
+        .getElementById("outEmail")
         .textContent =
         safe(
             invoice.email ||
@@ -1264,17 +1451,34 @@ function loadInvoice(){
         );
 
 
-    document
-        .getElementById("customerTrn")
-        .textContent =
-        safe(
-            invoice.customerTrn ||
-            invoice.customerTRN
-        );
+    const customerTrn =
+        invoice.customerTrn ||
+        invoice.customerTRN ||
+        "";
+
+
+    if(customerTrn){
+
+        document
+            .getElementById("customerTrnRow")
+            .style.display = "grid";
+
+        document
+            .getElementById("outCustomerTrn")
+            .textContent =
+            customerTrn;
+
+    }else{
+
+        document
+            .getElementById("customerTrnRow")
+            .style.display = "none";
+
+    }
 
 
     document
-        .getElementById("address")
+        .getElementById("outAddress")
         .textContent =
         safe(
             invoice.address ||
@@ -1287,7 +1491,7 @@ function loadInvoice(){
     ===================================== */
 
     document
-        .getElementById("vehicle")
+        .getElementById("outVehicle")
         .textContent =
         safe(
             invoice.vehicle ||
@@ -1296,20 +1500,20 @@ function loadInvoice(){
 
 
     document
-        .getElementById("vehicleModel")
+        .getElementById("outModel")
         .textContent =
         safe(
-            invoice.vehicleModel ||
-            invoice.model
+            invoice.model ||
+            invoice.vehicleModel
         );
 
 
     document
-        .getElementById("vehicleYear")
+        .getElementById("outYear")
         .textContent =
         safe(
-            invoice.vehicleYear ||
-            invoice.year
+            invoice.year ||
+            invoice.vehicleYear
         );
 
 
@@ -1318,7 +1522,7 @@ function loadInvoice(){
     ===================================== */
 
     document
-        .getElementById("service")
+        .getElementById("outService")
         .textContent =
         safe(
             invoice.service ||
@@ -1331,7 +1535,7 @@ function loadInvoice(){
     ===================================== */
 
     document
-        .getElementById("item")
+        .getElementById("outItem")
         .textContent =
         safe(
             invoice.item ||
@@ -1340,10 +1544,12 @@ function loadInvoice(){
         );
 
 
-    /* WARRANTY */
+    /* =====================================
+       WARRANTY
+    ===================================== */
 
     document
-        .getElementById("warranty")
+        .getElementById("outWarranty")
         .textContent =
         invoice.warranty
         ? "Warranty: " + invoice.warranty
@@ -1378,25 +1584,11 @@ function loadInvoice(){
 
     /* =====================================
        VAT MODE
-       
-       YES:
-       Unit Price is BEFORE VAT.
-       VAT 5% is added.
-
-       NO:
-       Unit Price is VAT-INCLUSIVE.
-       VAT is extracted from the
-       entered selling price.
     ===================================== */
 
     let chargeVat =
         invoice.vatCharge;
 
-
-    /*
-       Support older invoices that may
-       have used chargeVat.
-    */
 
     if(
         chargeVat === undefined ||
@@ -1411,9 +1603,8 @@ function loadInvoice(){
 
 
     /*
-       If VAT mode is still missing,
-       use saved VAT amount to determine
-       the mode where possible.
+       If old invoice has no VAT mode,
+       use saved VAT amount.
     */
 
     if(
@@ -1464,17 +1655,20 @@ function loadInvoice(){
     let grandTotal = 0;
 
 
+    /* =====================================
+       VAT YES
+    ===================================== */
+
     if(chargeVat === "YES"){
 
         /*
-           VAT YES
+          Unit price is VAT EXCLUSIVE.
 
-           Example:
-           Unit Price = 450.00
+          Example:
 
-           Subtotal = 450.00
-           VAT      = 22.50
-           Total    = 472.50
+          450.00
+          VAT 22.50
+          Total 472.50
         */
 
         subtotal =
@@ -1491,26 +1685,28 @@ function loadInvoice(){
         grandTotal =
             subtotal + vat;
 
-    }else{
+    }
+
+
+    /* =====================================
+       VAT NO
+    ===================================== */
+
+    else{
 
         /*
-           VAT NO
+          Unit price is VAT INCLUSIVE.
 
-           Entered price is VAT-INCLUSIVE.
+          Example:
 
-           Example:
-           Unit Price = 472.50
+          472.50 total
 
-           VAT-inclusive total = 472.50
+          Net:
+          472.50 / 1.05
+          = 450.00
 
-           Net amount:
-           472.50 / 1.05 = 450.00
-
-           VAT:
-           472.50 - 450.00 = 22.50
-
-           Grand Total remains:
-           472.50
+          VAT:
+          22.50
         */
 
         grandTotal =
@@ -1543,17 +1739,17 @@ function loadInvoice(){
 
 
     /* =====================================
-       ITEM NUMBERS
+       ITEM DETAILS
     ===================================== */
 
     document
-        .getElementById("qty")
+        .getElementById("outQty")
         .textContent =
         qty;
 
 
     document
-        .getElementById("unitPrice")
+        .getElementById("outUnit")
         .textContent =
         unitPrice.toFixed(2);
 
@@ -1563,7 +1759,7 @@ function loadInvoice(){
 
 
     document
-        .getElementById("itemTotal")
+        .getElementById("outItemTotal")
         .textContent =
         itemTotal.toFixed(2);
 
@@ -1573,28 +1769,28 @@ function loadInvoice(){
     ===================================== */
 
     document
-        .getElementById("subtotal")
+        .getElementById("outSubtotal")
         .textContent =
         "AED " +
         subtotal.toFixed(2);
 
 
     document
-        .getElementById("discount")
+        .getElementById("outDiscount")
         .textContent =
         "AED " +
         discount.toFixed(2);
 
 
     document
-        .getElementById("vat")
+        .getElementById("outVat")
         .textContent =
         "AED " +
         vat.toFixed(2);
 
 
     document
-        .getElementById("grandTotal")
+        .getElementById("outTotal")
         .textContent =
         "AED " +
         grandTotal.toFixed(2);
@@ -1605,18 +1801,54 @@ function loadInvoice(){
     ===================================== */
 
     document
-        .getElementById("payment")
+        .getElementById("outPayment")
         .textContent =
         safe(
             invoice.payment ||
             invoice.paymentMethod
         );
 
+
+    /* =====================================
+       SHOP WARRANTY
+    ===================================== */
+
+    const shopWarranty =
+        String(
+            invoice.shopWarranty || ""
+        )
+        .toUpperCase()
+        .trim();
+
+
+    const warrantyYes =
+        document.getElementById(
+            "warrantyYes"
+        );
+
+
+    const warrantyNo =
+        document.getElementById(
+            "warrantyNo"
+        );
+
+
+    warrantyYes.textContent =
+        shopWarranty === "YES"
+        ? "☑ YES"
+        : "☐ YES";
+
+
+    warrantyNo.textContent =
+        shopWarranty === "NO"
+        ? "☑ NO"
+        : "☐ NO";
+
 }
 
 
 /* =========================================
-   BACK
+   BACK TO HISTORY
 ========================================= */
 
 function goBack(){
