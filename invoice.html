@@ -7,6 +7,7 @@
 <title>Yalla Battery - Create Invoice</title>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Great+Vibes&display=swap');
 
 *{
@@ -135,7 +136,7 @@ body{
 ========================= */
 
 .invoice-card{
-    width:800px;
+    width:794px;
     max-width:calc(100% - 30px);
     margin:20px auto 40px;
     background:#ffffff;
@@ -529,28 +530,158 @@ body{
     padding-left:15px;
 }
 
-/* PRINT */
+/* =========================
+   PRINT
+========================= */
 
 @media print{
 
+    @page{
+        size:A4 portrait;
+        margin:0;
+    }
+
+    html,
     body{
-        background:white;
-        padding:0;
+        width:210mm;
+        min-height:297mm;
+        margin:0 !important;
+        padding:0 !important;
+        background:#ffffff !important;
+
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
     }
 
     .create-panel{
-        display:none;
+        display:none !important;
     }
 
     .invoice-card{
-        width:800px;
-        max-width:none;
-        margin:0;
-        box-shadow:none;
+        width:794px !important;
+        max-width:none !important;
+
+        margin:0 auto !important;
+
+        padding:25px !important;
+
+        background:#ffffff !important;
+
+        box-shadow:none !important;
+
+        page-break-inside:avoid !important;
+        break-inside:avoid !important;
     }
+
+    .header,
+    .info-section,
+    .items-table,
+    .bottom-section,
+    .features-bar,
+    .notes-sig-section,
+    .footer{
+        page-break-inside:avoid !important;
+        break-inside:avoid !important;
+    }
+
+    .section-box,
+    .payment-box,
+    .notes-box,
+    .sig-box{
+        page-break-inside:avoid !important;
+        break-inside:avoid !important;
+    }
+
+    /* FORCE COLORS IN PRINT */
+
+    .invoice-title-box{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .invoice-title-box::before{
+        background:#ffb800 !important;
+    }
+
+    .section-header{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .items-table th{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .grand-total-row{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .grand-total-amount{
+        background:#ffb800 !important;
+        color:#000000 !important;
+    }
+
+    .service-box{
+        background:#f0f7f7 !important;
+    }
+
+    .features-bar{
+        background:#f0f7f7 !important;
+    }
+
+    .feature-icon{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .icon-circle{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .notes-box{
+        background:#f5f5f5 !important;
+    }
+
+    .footer{
+        background:#00525b !important;
+        color:#ffffff !important;
+    }
+
+    .footer-banner{
+        background:#ffb800 !important;
+        color:#00525b !important;
+    }
+
+    /* KEEP ORIGINAL FONT SIZES */
+
+    .logo-title{
+        font-size:26px !important;
+    }
+
+    .invoice-title-box h1{
+        font-size:18px !important;
+    }
+
+    .items-table{
+        font-size:12px !important;
+    }
+
+    .items-table th{
+        font-size:11px !important;
+    }
+
+    .items-table td{
+        font-size:12px !important;
+    }
+
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
@@ -611,6 +742,7 @@ body{
     }
 
 }
+
 </style>
 </head>
 
@@ -682,12 +814,10 @@ body{
             <label>Payment Method</label>
 
             <select id="paymentMethod">
-
                 <option>Card</option>
                 <option>Cash</option>
                 <option>Bank Transfer</option>
                 <option>Link</option>
-
             </select>
 
         </div>
@@ -696,34 +826,44 @@ body{
             <label>Service</label>
 
             <select id="service">
-
                 <option>Battery Replacement</option>
                 <option>Jump Start Service</option>
                 <option>Roadside Assistance</option>
                 <option>Battery Diagnosis</option>
-
             </select>
 
         </div>
 
         <div class="form-group full">
+
             <label>Notes</label>
-            <textarea id="notes" placeholder="Enter invoice notes"></textarea>
+
+            <textarea
+                id="notes"
+                placeholder="Enter invoice notes">
+            </textarea>
+
         </div>
 
     </div>
 
     <div class="form-buttons">
 
-        <button class="generate-btn" onclick="generateInvoice()">
+        <button
+            class="generate-btn"
+            onclick="generateInvoice()">
             CREATE / UPDATE INVOICE
         </button>
 
-        <button class="print-btn" onclick="window.print()">
+        <button
+            class="print-btn"
+            onclick="window.print()">
             PRINT / SAVE PDF
         </button>
 
-        <button class="back-btn" onclick="window.location.href='index.html'">
+        <button
+            class="back-btn"
+            onclick="window.location.href='index.html'">
             BACK TO CRM
         </button>
 
@@ -761,24 +901,43 @@ body{
         <div>
 
             <div class="invoice-title-box">
-                <h1>TAX INVOICE</h1>
+
+                <h1>
+                    TAX INVOICE
+                </h1>
+
             </div>
 
             <table class="invoice-details-grid">
 
                 <tr>
-                    <td class="label">Invoice No</td>
-                    <td id="outInvoiceNo">: YB-0001</td>
+                    <td class="label">
+                        Invoice No
+                    </td>
+
+                    <td id="outInvoiceNo">
+                        : YB-0001
+                    </td>
                 </tr>
 
                 <tr>
-                    <td class="label">Date</td>
-                    <td id="outDate">: 20-09-2025</td>
+                    <td class="label">
+                        Date
+                    </td>
+
+                    <td id="outDate">
+                        : 20-09-2025
+                    </td>
                 </tr>
 
                 <tr>
-                    <td class="label">Time</td>
-                    <td id="outTime">: 10:24 AM</td>
+                    <td class="label">
+                        Time
+                    </td>
+
+                    <td id="outTime">
+                        : 10:24 AM
+                    </td>
                 </tr>
 
             </table>
@@ -803,23 +962,51 @@ body{
                 <table class="customer-table">
 
                     <tr>
-                        <td class="label">Name</td>
-                        <td id="outName">: Walk-in Customer</td>
+
+                        <td class="label">
+                            Name
+                        </td>
+
+                        <td id="outName">
+                            : Walk-in Customer
+                        </td>
+
                     </tr>
 
                     <tr>
-                        <td class="label">Phone</td>
-                        <td id="outPhone">: 052 123 4567</td>
+
+                        <td class="label">
+                            Phone
+                        </td>
+
+                        <td id="outPhone">
+                            : 052 123 4567
+                        </td>
+
                     </tr>
 
                     <tr>
-                        <td class="label">Email</td>
-                        <td id="outEmail">: N/A</td>
+
+                        <td class="label">
+                            Email
+                        </td>
+
+                        <td id="outEmail">
+                            : N/A
+                        </td>
+
                     </tr>
 
                     <tr>
-                        <td class="label">Address</td>
-                        <td id="outAddress">: Dubai, UAE</td>
+
+                        <td class="label">
+                            Address
+                        </td>
+
+                        <td id="outAddress">
+                            : Dubai, UAE
+                        </td>
+
                     </tr>
 
                 </table>
@@ -838,23 +1025,46 @@ body{
             <div class="service-icons">
 
                 <div class="icon-item">
-                    <div class="icon-circle">🔋</div>
+
+                    <div class="icon-circle">
+                        🔋
+                    </div>
+
                     Battery Replacement
+
                 </div>
 
+
                 <div class="icon-item">
-                    <div class="icon-circle">🔧</div>
+
+                    <div class="icon-circle">
+                        🔧
+                    </div>
+
                     Jump Start Service
+
                 </div>
 
+
                 <div class="icon-item">
-                    <div class="icon-circle">🚗</div>
+
+                    <div class="icon-circle">
+                        🚗
+                    </div>
+
                     Roadside Assistance
+
                 </div>
 
+
                 <div class="icon-item">
-                    <div class="icon-circle">📋</div>
+
+                    <div class="icon-circle">
+                        📋
+                    </div>
+
                     Battery Diagnosis
+
                 </div>
 
             </div>
@@ -871,11 +1081,27 @@ body{
         <thead>
 
             <tr>
-                <th style="width:5%;">#</th>
-                <th style="width:45%;">ITEM DESCRIPTION</th>
-                <th style="width:10%;">QTY</th>
-                <th style="width:20%;">UNIT PRICE (AED)</th>
-                <th style="width:20%;">TOTAL (AED)</th>
+
+                <th style="width:5%;">
+                    #
+                </th>
+
+                <th style="width:45%;">
+                    ITEM DESCRIPTION
+                </th>
+
+                <th style="width:10%;">
+                    QTY
+                </th>
+
+                <th style="width:20%;">
+                    UNIT PRICE (AED)
+                </th>
+
+                <th style="width:20%;">
+                    TOTAL (AED)
+                </th>
+
             </tr>
 
         </thead>
@@ -883,22 +1109,103 @@ body{
         <tbody>
 
             <tr>
-                <td>1</td>
-                <td class="desc" id="outItem">Car Battery (Yalla Battery)</td>
-                <td id="outQty">1</td>
-                <td id="outUnit">450.00</td>
-                <td id="outItemTotal">450.00</td>
+
+                <td>
+                    1
+                </td>
+
+                <td
+                    class="desc"
+                    id="outItem">
+                    Car Battery (Yalla Battery)
+                </td>
+
+                <td id="outQty">
+                    1
+                </td>
+
+                <td id="outUnit">
+                    450.00
+                </td>
+
+                <td id="outItemTotal">
+                    450.00
+                </td>
+
             </tr>
 
-            <tr><td>2</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>3</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>4</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>5</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>6</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>7</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>8</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>9</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
-            <tr><td>10</td><td class="desc"></td><td>-</td><td>-</td><td>-</td></tr>
+
+            <tr>
+                <td>2</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td class="desc"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
 
         </tbody>
 
@@ -917,7 +1224,9 @@ body{
 
             <div class="payment-content">
 
-                <div class="payment-methods" id="outPayment">
+                <div
+                    class="payment-methods"
+                    id="outPayment">
                     Card / Cash / Bank Transfer / Link
                 </div>
 
@@ -939,27 +1248,60 @@ body{
             <table class="totals-table">
 
                 <tr>
-                    <td class="label">Sub Total</td>
-                    <td class="amount" id="outSubtotal">450.00</td>
+
+                    <td class="label">
+                        Sub Total
+                    </td>
+
+                    <td
+                        class="amount"
+                        id="outSubtotal">
+                        450.00
+                    </td>
+
                 </tr>
 
-                <tr>
-                    <td class="label">Discount</td>
-                    <td class="amount" id="outDiscount">0.00</td>
-                </tr>
 
                 <tr>
-                    <td class="label">VAT (5%)</td>
-                    <td class="amount" id="outVat">22.50</td>
+
+                    <td class="label">
+                        Discount
+                    </td>
+
+                    <td
+                        class="amount"
+                        id="outDiscount">
+                        0.00
+                    </td>
+
                 </tr>
+
+
+                <tr>
+
+                    <td class="label">
+                        VAT (5%)
+                    </td>
+
+                    <td
+                        class="amount"
+                        id="outVat">
+                        22.50
+                    </td>
+
+                </tr>
+
 
                 <tr class="grand-total-row">
 
-                    <td style="font-weight:bold;vertical-align:middle;">
+                    <td
+                        style="font-weight:bold;vertical-align:middle;">
                         Total Amount (AED)
                     </td>
 
-                    <td class="grand-total-amount" id="outTotal">
+                    <td
+                        class="grand-total-amount"
+                        id="outTotal">
                         472.50
                     </td>
 
@@ -977,23 +1319,46 @@ body{
     <div class="features-bar">
 
         <div class="feature-item">
-            <div class="feature-icon">✓</div>
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
             Genuine & Premium Batteries
+
         </div>
 
+
         <div class="feature-item">
-            <div class="feature-icon">✓</div>
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
             Warranty Included
+
         </div>
 
+
         <div class="feature-item">
-            <div class="feature-icon">🕒</div>
+
+            <div class="feature-icon">
+                🕒
+            </div>
+
             24/7 Service
+
         </div>
 
+
         <div class="feature-item">
-            <div class="feature-icon">📍</div>
+
+            <div class="feature-icon">
+                📍
+            </div>
+
             Dubai & All UAE Cities
+
         </div>
 
     </div>
@@ -1004,9 +1369,15 @@ body{
     <div class="notes-sig-section">
 
         <div class="notes-box">
-            <strong>Notes:</strong>
+
+            <strong>
+                Notes:
+            </strong>
+
             <span id="outNotes"></span>
+
         </div>
+
 
         <div class="sig-box">
 
@@ -1027,11 +1398,20 @@ body{
 
         <div class="footer-info">
 
-            <div>📞 +971 52 404 0699</div>
-            <div>✉ info@yallabattery.ae</div>
-            <div>📍 Dubai, UAE</div>
+            <div>
+                📞 +971 52 404 0699
+            </div>
+
+            <div>
+                ✉ info@yallabattery.ae
+            </div>
+
+            <div>
+                📍 Dubai, UAE
+            </div>
 
         </div>
+
 
         <div class="footer-banner">
             Powering Your Journey
@@ -1050,9 +1430,14 @@ body{
 
 const today = new Date();
 
-const yyyy = today.getFullYear();
-const mm = String(today.getMonth()+1).padStart(2,'0');
-const dd = String(today.getDate()).padStart(2,'0');
+const yyyy =
+    today.getFullYear();
+
+const mm =
+    String(today.getMonth()+1).padStart(2,'0');
+
+const dd =
+    String(today.getDate()).padStart(2,'0');
 
 document.getElementById("invoiceDate").value =
     yyyy + "-" + mm + "-" + dd;
@@ -1065,9 +1450,12 @@ document.getElementById("invoiceDate").value =
 function getNextInvoiceNumber(){
 
     let number =
-        parseInt(localStorage.getItem("yallaInvoiceNumber") || "1");
+        parseInt(
+            localStorage.getItem("yallaInvoiceNumber") || "1"
+        );
 
-    return "YB-" + String(number).padStart(4,"0");
+    return "YB-" +
+        String(number).padStart(4,"0");
 }
 
 
@@ -1078,76 +1466,136 @@ function getNextInvoiceNumber(){
 function generateInvoice(){
 
     const name =
-        document.getElementById("customerName").value.trim()
+        document
+        .getElementById("customerName")
+        .value
+        .trim()
         || "Walk-in Customer";
 
+
     const phone =
-        document.getElementById("customerPhone").value.trim()
+        document
+        .getElementById("customerPhone")
+        .value
+        .trim()
         || "N/A";
+
 
     const email =
-        document.getElementById("customerEmail").value.trim()
+        document
+        .getElementById("customerEmail")
+        .value
+        .trim()
         || "N/A";
 
+
     const address =
-        document.getElementById("customerAddress").value.trim()
+        document
+        .getElementById("customerAddress")
+        .value
+        .trim()
         || "Dubai, UAE";
 
+
     const vehicle =
-        document.getElementById("vehicle").value.trim();
+        document
+        .getElementById("vehicle")
+        .value
+        .trim();
+
 
     const item =
-        document.getElementById("itemDescription").value.trim()
+        document
+        .getElementById("itemDescription")
+        .value
+        .trim()
         || "Car Battery (Yalla Battery)";
 
+
     const quantity =
-        parseFloat(document.getElementById("quantity").value) || 1;
+        parseFloat(
+            document.getElementById("quantity").value
+        ) || 1;
+
 
     const unitPrice =
-        parseFloat(document.getElementById("unitPrice").value) || 0;
+        parseFloat(
+            document.getElementById("unitPrice").value
+        ) || 0;
+
 
     const discount =
-        parseFloat(document.getElementById("discount").value) || 0;
+        parseFloat(
+            document.getElementById("discount").value
+        ) || 0;
+
 
     const payment =
-        document.getElementById("paymentMethod").value;
+        document
+        .getElementById("paymentMethod")
+        .value;
+
 
     const service =
-        document.getElementById("service").value;
+        document
+        .getElementById("service")
+        .value;
+
 
     const notes =
-        document.getElementById("notes").value.trim();
+        document
+        .getElementById("notes")
+        .value
+        .trim();
+
 
     const dateValue =
-        document.getElementById("invoiceDate").value;
+        document
+        .getElementById("invoiceDate")
+        .value;
 
-    /* CALCULATIONS */
+
+    /* =========================
+       CALCULATIONS
+    ========================= */
 
     const subtotal =
         quantity * unitPrice;
 
+
     const taxableAmount =
-        Math.max(subtotal - discount, 0);
+        Math.max(
+            subtotal - discount,
+            0
+        );
+
 
     const vat =
         taxableAmount * 0.05;
+
 
     const total =
         taxableAmount + vat;
 
 
-    /* INVOICE NUMBER */
+    /* =========================
+       INVOICE NUMBER
+    ========================= */
 
     const invoiceNo =
         getNextInvoiceNumber();
 
-    /* DATE */
+
+    /* =========================
+       DATE
+    ========================= */
 
     let formattedDate = "";
 
     if(dateValue){
 
-        const parts = dateValue.split("-");
+        const parts =
+            dateValue.split("-");
 
         formattedDate =
             parts[2] + "-" +
@@ -1157,109 +1605,196 @@ function generateInvoice(){
     }else{
 
         formattedDate =
-            dd + "-" + mm + "-" + yyyy;
+            dd + "-" +
+            mm + "-" +
+            yyyy;
 
     }
 
 
-    /* TIME */
+    /* =========================
+       TIME
+    ========================= */
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    let hours = now.getHours();
+
+    let hours =
+        now.getHours();
+
 
     const minutes =
-        String(now.getMinutes()).padStart(2,"0");
+        String(
+            now.getMinutes()
+        ).padStart(2,"0");
+
 
     const ampm =
-        hours >= 12 ? "PM" : "AM";
+        hours >= 12
+        ? "PM"
+        : "AM";
+
 
     hours =
         hours % 12 || 12;
 
+
     const time =
-        hours + ":" + minutes + " " + ampm;
+        hours + ":" +
+        minutes + " " +
+        ampm;
 
 
-    /* UPDATE INVOICE */
+    /* =========================
+       UPDATE INVOICE
+    ========================= */
 
-    document.getElementById("outInvoiceNo").textContent =
+    document
+        .getElementById("outInvoiceNo")
+        .textContent =
         ": " + invoiceNo;
 
-    document.getElementById("outDate").textContent =
+
+    document
+        .getElementById("outDate")
+        .textContent =
         ": " + formattedDate;
 
-    document.getElementById("outTime").textContent =
+
+    document
+        .getElementById("outTime")
+        .textContent =
         ": " + time;
 
-    document.getElementById("outName").textContent =
+
+    document
+        .getElementById("outName")
+        .textContent =
         ": " + name;
 
-    document.getElementById("outPhone").textContent =
+
+    document
+        .getElementById("outPhone")
+        .textContent =
         ": " + phone;
 
-    document.getElementById("outEmail").textContent =
+
+    document
+        .getElementById("outEmail")
+        .textContent =
         ": " + email;
 
-    document.getElementById("outAddress").textContent =
+
+    document
+        .getElementById("outAddress")
+        .textContent =
         ": " + address;
 
-    document.getElementById("outItem").textContent =
-        item + (vehicle ? " - " + vehicle : "");
 
-    document.getElementById("outQty").textContent =
+    document
+        .getElementById("outItem")
+        .textContent =
+        item +
+        (vehicle
+            ? " - " + vehicle
+            : "");
+
+
+    document
+        .getElementById("outQty")
+        .textContent =
         quantity;
 
-    document.getElementById("outUnit").textContent =
+
+    document
+        .getElementById("outUnit")
+        .textContent =
         unitPrice.toFixed(2);
 
-    document.getElementById("outItemTotal").textContent =
+
+    document
+        .getElementById("outItemTotal")
+        .textContent =
         subtotal.toFixed(2);
 
-    document.getElementById("outPayment").textContent =
+
+    document
+        .getElementById("outPayment")
+        .textContent =
         payment;
 
-    document.getElementById("outSubtotal").textContent =
+
+    document
+        .getElementById("outSubtotal")
+        .textContent =
         subtotal.toFixed(2);
 
-    document.getElementById("outDiscount").textContent =
+
+    document
+        .getElementById("outDiscount")
+        .textContent =
         discount.toFixed(2);
 
-    document.getElementById("outVat").textContent =
+
+    document
+        .getElementById("outVat")
+        .textContent =
         vat.toFixed(2);
 
-    document.getElementById("outTotal").textContent =
+
+    document
+        .getElementById("outTotal")
+        .textContent =
         total.toFixed(2);
 
-    document.getElementById("outNotes").textContent =
-        notes ? " " + notes : "";
+
+    document
+        .getElementById("outNotes")
+        .textContent =
+        notes
+        ? " " + notes
+        : "";
 
 
-    /* SAVE INVOICE */
+    /* =========================
+       SAVE INVOICE
+    ========================= */
 
     const invoiceData = {
 
         invoiceNo: invoiceNo,
+
         date: formattedDate,
+
         time: time,
 
         customerName: name,
+
         phone: phone,
+
         email: email,
+
         address: address,
 
         vehicle: vehicle,
 
         item: item,
+
         quantity: quantity,
+
         unitPrice: unitPrice,
 
         subtotal: subtotal,
+
         discount: discount,
+
         vat: vat,
+
         total: total,
 
         payment: payment,
+
         service: service,
 
         notes: notes
@@ -1269,10 +1804,13 @@ function generateInvoice(){
 
     let invoices =
         JSON.parse(
-            localStorage.getItem("yallaInvoices") || "[]"
+            localStorage.getItem("yallaInvoices")
+            || "[]"
         );
 
+
     invoices.push(invoiceData);
+
 
     localStorage.setItem(
         "yallaInvoices",
@@ -1280,12 +1818,17 @@ function generateInvoice(){
     );
 
 
-    /* NEXT INVOICE NUMBER */
+    /* =========================
+       NEXT INVOICE NUMBER
+    ========================= */
 
     let nextNumber =
         parseInt(
-            localStorage.getItem("yallaInvoiceNumber") || "1"
+            localStorage.getItem(
+                "yallaInvoiceNumber"
+            ) || "1"
         ) + 1;
+
 
     localStorage.setItem(
         "yallaInvoiceNumber",
@@ -1306,17 +1849,20 @@ function generateInvoice(){
    SERVICE
 ========================= */
 
-document.getElementById("service").addEventListener(
-    "change",
-    function(){
+document
+    .getElementById("service")
+    .addEventListener(
+        "change",
+        function(){
 
-        /* Service selection is saved with invoice.
-           Invoice design remains unchanged. */
+            /* Service selection is saved
+               with invoice.
+               Invoice design remains unchanged. */
 
-    }
-);
+        }
+    );
 
 </script>
 
 </body>
-            </html>
+</html>
