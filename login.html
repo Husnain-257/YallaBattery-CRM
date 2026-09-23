@@ -179,6 +179,25 @@ body{
 
     <form onsubmit="login(event)">
 
+        <!-- OWNER ID -->
+
+        <div class="field">
+
+            <label>Owner ID</label>
+
+            <input
+                type="text"
+                id="ownerId"
+                placeholder="Enter owner ID"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+
+        <!-- USERNAME -->
+
         <div class="field">
 
             <label>User Name</label>
@@ -187,12 +206,13 @@ body{
                 type="text"
                 id="username"
                 placeholder="Enter user name"
-                autocomplete="username"
                 required
             >
 
         </div>
 
+
+        <!-- PASSWORD -->
 
         <div class="field">
 
@@ -221,7 +241,7 @@ body{
             class="error"
             id="error"
         >
-            Invalid username or password.
+            Invalid Owner ID, username or password.
         </div>
 
     </form>
@@ -240,6 +260,10 @@ body{
 
 const STORAGE_KEY = "yallaCRMUsers";
 
+const CURRENT_OWNER_ID = "SAAD1";
+const CURRENT_USERNAME = "Saad";
+const CURRENT_PASSWORD = "saad@786";
+
 
 /* GET USERS */
 
@@ -249,19 +273,37 @@ let users =
     );
 
 
-/* CREATE DEFAULT OWNER */
+/*
+    FORCE NEW OWNER LOGIN
+    This removes the old default Owner
+    and creates the new owner.
+*/
 
-if(users.length === 0){
+const correctOwnerExists =
+    users.some(function(item){
 
-    users.push({
-
-        name:"Owner",
-
-        password:"1234",
-
-        role:"Owner"
+        return (
+            item.ownerId === CURRENT_OWNER_ID &&
+            item.name === CURRENT_USERNAME &&
+            item.password === CURRENT_PASSWORD &&
+            item.role === "Owner"
+        );
 
     });
+
+
+if(!correctOwnerExists){
+
+    users = [
+
+        {
+            ownerId: CURRENT_OWNER_ID,
+            name: CURRENT_USERNAME,
+            password: CURRENT_PASSWORD,
+            role: "Owner"
+        }
+
+    ];
 
     localStorage.setItem(
         STORAGE_KEY,
@@ -276,6 +318,12 @@ if(users.length === 0){
 function login(event){
 
     event.preventDefault();
+
+
+    const ownerId =
+        document.getElementById("ownerId")
+        .value
+        .trim();
 
 
     const username =
@@ -297,10 +345,14 @@ function login(event){
         users.find(function(item){
 
             return (
+                item.ownerId === ownerId
+                &&
                 item.name.toLowerCase() ===
                 username.toLowerCase()
                 &&
                 item.password === password
+                &&
+                item.role === "Owner"
             );
 
         });
@@ -326,6 +378,8 @@ function login(event){
     sessionStorage.setItem(
         "yallaCurrentUser",
         JSON.stringify({
+
+            ownerId:user.ownerId,
 
             name:user.name,
 
