@@ -351,8 +351,13 @@ body{
 <main class="container">
 
     <div class="welcome">
+
         <h2>Yalla Battery CRM</h2>
-        <p>Manage customers, invoices, batteries and vehicle information from one place.</p>
+
+        <p>
+            Manage customers, invoices, batteries and vehicle information from one place.
+        </p>
+
     </div>
 
 
@@ -361,27 +366,46 @@ body{
     <div class="stats">
 
         <div class="stat">
+
             <div class="icon">🧾</div>
+
             <h3 id="invoiceCount">0</h3>
+
             <p>Total Invoices</p>
+
         </div>
 
+
         <div class="stat">
+
             <div class="icon">👤</div>
+
             <h3 id="customerCount">0</h3>
+
             <p>Total Customers</p>
+
         </div>
 
+
         <div class="stat">
+
             <div class="icon">🔋</div>
+
             <h3 id="stockCount">0</h3>
+
             <p>Battery Stock</p>
+
         </div>
 
+
         <div class="stat">
+
             <div class="icon">💰</div>
+
             <h3 id="salesTotal">AED 0.00</h3>
+
             <p>Total Sales</p>
+
         </div>
 
     </div>
@@ -391,6 +415,9 @@ body{
 
 
     <div class="menu-grid">
+
+
+        <!-- CREATE INVOICE -->
 
         <div class="card primary" onclick="openPage('invoice.html')">
 
@@ -406,6 +433,8 @@ body{
         </div>
 
 
+        <!-- INVOICE HISTORY -->
+
         <div class="card" onclick="openPage('invoice-history.html')">
 
             <div class="card-icon">📋</div>
@@ -419,6 +448,8 @@ body{
 
         </div>
 
+
+        <!-- CUSTOMERS -->
 
         <div class="card" onclick="openPage('customers.html')">
 
@@ -434,6 +465,8 @@ body{
         </div>
 
 
+        <!-- BATTERY STOCK -->
+
         <div class="card" onclick="openPage('battery-stock.html')">
 
             <div class="card-icon">🔋</div>
@@ -447,6 +480,8 @@ body{
 
         </div>
 
+
+        <!-- CAR DATABASE -->
 
         <div class="card" onclick="openPage('car-database.html')">
 
@@ -478,6 +513,24 @@ body{
         </div>
 
 
+        <!-- USERS MANAGEMENT -->
+
+        <div class="card" onclick="openPage('users.html')">
+
+            <div class="card-icon">👥</div>
+
+            <h3>Users Management</h3>
+
+            <p>
+                Manage CRM users, user names and access
+                roles for Owner and Staff accounts.
+            </p>
+
+        </div>
+
+
+        <!-- CRM SETTINGS -->
+
         <div class="card" onclick="showSettings()">
 
             <div class="card-icon">⚙️</div>
@@ -499,15 +552,20 @@ body{
     <div class="quick">
 
         <div>
+
             <h3>Ready to create an invoice?</h3>
 
             <p>
                 Generate a professional Yalla Battery invoice for your customer.
             </p>
+
         </div>
 
+
         <button class="invoice-btn" onclick="openPage('invoice.html')">
+
             + CREATE INVOICE
+
         </button>
 
     </div>
@@ -532,12 +590,17 @@ body{
 
 <script>
 
+
+/* OPEN PAGE */
+
 function openPage(page){
 
     window.location.href = page;
 
 }
 
+
+/* SETTINGS */
 
 function showSettings(){
 
@@ -552,39 +615,49 @@ function showSettings(){
 }
 
 
-/* Dashboard data */
+/* DASHBOARD DATA */
+
 
 let invoices =
-    JSON.parse(localStorage.getItem("yallaInvoices") || "[]");
+    JSON.parse(
+        localStorage.getItem("yallaInvoices") || "[]"
+    );
+
 
 let customers =
-    JSON.parse(localStorage.getItem("yallaCustomers") || "[]");
+    JSON.parse(
+        localStorage.getItem("yallaCustomers") || "[]"
+    );
+
 
 let stock =
-    JSON.parse(localStorage.getItem("yallaBatteryStock") || "[]");
+    JSON.parse(
+        localStorage.getItem("yallaBatteryStock") || "[]"
+    );
 
 
-/* Total invoices */
+/* TOTAL INVOICES */
 
 document.getElementById("invoiceCount").textContent =
     invoices.length;
 
 
-/* Total customers */
+/* TOTAL CUSTOMERS */
 
 document.getElementById("customerCount").textContent =
     customers.length;
 
 
-/* Battery stock */
+/* BATTERY STOCK */
 
 document.getElementById("stockCount").textContent =
     stock.length;
 
 
-/* Total sales */
+/* TOTAL SALES */
 
 let totalSales = 0;
+
 
 invoices.forEach(function(invoice){
 
@@ -599,6 +672,7 @@ invoices.forEach(function(invoice){
 
 document.getElementById("salesTotal").textContent =
     "AED " + totalSales.toFixed(2);
+
 
 </script>
 
