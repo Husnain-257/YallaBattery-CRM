@@ -195,6 +195,15 @@ body{
     background:#fff7d6;
 }
 
+/* OWNER REPORTS */
+.card.reports{
+    border-top:5px solid #005f64;
+}
+
+.card.reports .card-icon{
+    background:#e5f4f4;
+}
+
 /* QUICK ACTION */
 .quick{
     margin-top:25px;
@@ -310,6 +319,7 @@ body{
     .invoice-btn{
         width:100%;
     }
+
 }
 </style>
 </head>
@@ -452,6 +462,22 @@ body{
         </div>
 
 
+        <!-- OWNER REPORTS -->
+
+        <div class="card reports" onclick="openPage('owner-reports.html')">
+
+            <div class="card-icon">📊</div>
+
+            <h3>Owner Reports</h3>
+
+            <p>
+                View total sales, total cost, profit,
+                invoice performance and business reports.
+            </p>
+
+        </div>
+
+
         <div class="card" onclick="showSettings()">
 
             <div class="card-icon">⚙️</div>
@@ -474,6 +500,7 @@ body{
 
         <div>
             <h3>Ready to create an invoice?</h3>
+
             <p>
                 Generate a professional Yalla Battery invoice for your customer.
             </p>
