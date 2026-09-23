@@ -82,6 +82,7 @@ body{
     font-size:14px;
     outline:none;
     font-family:Roboto,Arial,sans-serif;
+    background:#ffffff;
 }
 
 .form-group input:focus,
@@ -744,13 +745,39 @@ body{
         >
     </div>
 
+    <!-- =================================================
+         BATTERY STOCK SELECTION
+    ================================================= -->
+
+    <div class="form-group">
+        <label>Battery Stock</label>
+
+        <select
+            id="stockBattery"
+            onchange="selectStockBattery()"
+        >
+
+            <option value="">
+                Select battery from stock
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- =================================================
+         BATTERY / ITEM DESCRIPTION
+    ================================================= -->
+
     <div class="form-group">
         <label>Battery / Item Description</label>
+
         <input
             type="text"
             id="item"
             placeholder="Example: Amaron 55B24L"
         >
+
     </div>
 
     <div class="form-group">
@@ -765,16 +792,20 @@ body{
 
     <div class="form-group">
         <label>Quantity</label>
+
         <input
             type="number"
             id="qty"
             value="1"
             min="1"
+            onchange="checkSelectedStock()"
         >
+
     </div>
 
     <div class="form-group">
         <label>Unit Price (AED)</label>
+
         <input
             type="number"
             id="unitPrice"
@@ -782,6 +813,7 @@ body{
             min="0"
             step="0.01"
         >
+
     </div>
 
     <!-- =================================================
@@ -791,6 +823,7 @@ body{
 
     <div class="form-group">
         <label>Cost Price (AED)</label>
+
         <input
             type="number"
             id="costPrice"
@@ -799,10 +832,12 @@ body{
             step="0.01"
             placeholder="Enter cost price"
         >
+
     </div>
 
     <div class="form-group">
         <label>Discount (AED)</label>
+
         <input
             type="number"
             id="discount"
@@ -810,6 +845,7 @@ body{
             min="0"
             step="0.01"
         >
+
     </div>
 
     <div class="form-group">
@@ -887,7 +923,7 @@ body{
             Service
         </label>
 
-        <select id="service">
+        <select id="service" onchange="serviceChanged()">
 
             <option value="Battery Replacement">
                 Battery Replacement
@@ -1501,30 +1537,319 @@ body{
 <script>
 
 /* =====================================================
+   STOCK SYSTEM
+===================================================== */
+
+/*
+   Battery Stock page stores data in:
+
+   yallaBatteryStock
+
+   Each battery has:
+
+   brand
+   model
+   size
+   quantity
+   costPrice
+*/
+
+let stockBatteries = [];
+
+
+/* =====================================================
+   LOAD BATTERY STOCK
+===================================================== */
+
+function loadBatteryStock(){
+
+    stockBatteries =
+        JSON.parse(
+            localStorage.getItem(
+                "yallaBatteryStock"
+            ) || "[]"
+        );
+
+
+    const stockSelect =
+        document.getElementById(
+            "stockBattery"
+        );
+
+
+    stockSelect.innerHTML = "";
+
+
+    const firstOption =
+        document.createElement("option");
+
+
+    firstOption.value = "";
+
+    firstOption.textContent =
+        "Select battery from stock";
+
+
+    stockSelect.appendChild(
+        firstOption
+    );
+
+
+    stockBatteries.forEach(
+        function(battery,index){
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                index;
+
+
+            option.textContent =
+                battery.brand +
+                " " +
+                battery.model +
+                " | " +
+                battery.size +
+                " | Stock: " +
+                Number(
+                    battery.quantity
+                );
+
+
+            stockSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SELECT BATTERY FROM STOCK
+===================================================== */
+
+function selectStockBattery(){
+
+    const selectedIndex =
+        document.getElementById(
+            "stockBattery"
+        ).value;
+
+
+    if(selectedIndex === ""){
+
+        return;
+
+    }
+
+
+    const battery =
+        stockBatteries[
+            Number(selectedIndex)
+        ];
+
+
+    if(!battery){
+
+        return;
+
+    }
+
+
+    /*
+       Automatically put the stock battery
+       description into item field.
+    */
+
+    document.getElementById(
+        "item"
+    ).value =
+        battery.brand +
+        " " +
+        battery.model +
+        " " +
+        battery.size;
+
+
+    /*
+       Automatically use stock Cost Price.
+    */
+
+    document.getElementById(
+        "costPrice"
+    ).value =
+        Number(
+            battery.costPrice
+        ).toFixed(2);
+
+
+    /*
+       Default quantity = 1
+    */
+
+    document.getElementById(
+        "qty"
+    ).value = 1;
+
+
+    checkSelectedStock();
+
+}
+
+
+/* =====================================================
+   CHECK SELECTED STOCK
+===================================================== */
+
+function checkSelectedStock(){
+
+    const selectedIndex =
+        document.getElementById(
+            "stockBattery"
+        ).value;
+
+
+    if(selectedIndex === ""){
+
+        return true;
+
+    }
+
+
+    const battery =
+        stockBatteries[
+            Number(selectedIndex)
+        ];
+
+
+    if(!battery){
+
+        return true;
+
+    }
+
+
+    const qty =
+        Number(
+            document.getElementById(
+                "qty"
+            ).value
+        ) || 1;
+
+
+    const available =
+        Number(
+            battery.quantity
+        ) || 0;
+
+
+    if(qty > available){
+
+        alert(
+            "Not enough stock!\n\n" +
+            battery.brand +
+            " " +
+            battery.model +
+            " " +
+            battery.size +
+            "\n\n" +
+            "Available Stock: " +
+            available +
+            "\n" +
+            "Requested Quantity: " +
+            qty
+        );
+
+
+        document.getElementById(
+            "qty"
+        ).value =
+            available > 0
+            ? 1
+            : 0;
+
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   SERVICE CHANGE
+===================================================== */
+
+function serviceChanged(){
+
+    const service =
+        document.getElementById(
+            "service"
+        ).value;
+
+
+    /*
+       If service is not Battery Replacement,
+       stock selection is not required.
+    */
+
+    if(
+        service !==
+        "Battery Replacement"
+    ){
+
+        return;
+
+    }
+
+}
+
+
+/* =====================================================
    SET DEFAULT DATE
 ===================================================== */
 
 const dateInput =
-    document.getElementById("invoiceDate");
+    document.getElementById(
+        "invoiceDate"
+    );
+
 
 if(!dateInput.value){
 
     const today =
         new Date();
 
+
     const year =
         today.getFullYear();
 
+
     const month =
-        String(today.getMonth() + 1)
-        .padStart(2,"0");
+        String(
+            today.getMonth() + 1
+        ).padStart(2,"0");
+
 
     const day =
-        String(today.getDate())
-        .padStart(2,"0");
+        String(
+            today.getDate()
+        ).padStart(2,"0");
+
 
     dateInput.value =
-        year + "-" + month + "-" + day;
+        year +
+        "-" +
+        month +
+        "-" +
+        day;
 
 }
 
@@ -1534,6 +1859,19 @@ if(!dateInput.value){
 ===================================================== */
 
 function createInvoice(){
+
+    /*
+       Always reload stock immediately before
+       creating invoice so latest quantity is used.
+    */
+
+    stockBatteries =
+        JSON.parse(
+            localStorage.getItem(
+                "yallaBatteryStock"
+            ) || "[]"
+        );
+
 
     const customerName =
         document
@@ -1627,11 +1965,6 @@ function createInvoice(){
         ) || 0;
 
 
-    /* =================================================
-       COST PRICE
-       INTERNAL OWNER DATA ONLY
-    ================================================= */
-
     const costPrice =
         Number(
             document
@@ -1672,67 +2005,179 @@ function createInvoice(){
         .value;
 
 
+    const selectedStockIndex =
+        document
+        .getElementById("stockBattery")
+        .value;
+
+
+    /* =================================================
+       BASIC VALIDATION
+    ================================================= */
+
+    if(qty < 1){
+
+        alert(
+            "Quantity must be at least 1."
+        );
+
+        return;
+
+    }
+
+
+    /* =================================================
+       STOCK VALIDATION
+    ================================================= */
+
+    let selectedBattery = null;
+
+
+    if(
+        service ===
+        "Battery Replacement"
+    ){
+
+        if(selectedStockIndex === ""){
+
+            alert(
+                "Please select a battery from Battery Stock."
+            );
+
+            return;
+
+        }
+
+
+        selectedBattery =
+            stockBatteries[
+                Number(selectedStockIndex)
+            ];
+
+
+        if(!selectedBattery){
+
+            alert(
+                "Selected battery was not found in stock."
+            );
+
+            loadBatteryStock();
+
+            return;
+
+        }
+
+
+        const availableStock =
+            Number(
+                selectedBattery.quantity
+            ) || 0;
+
+
+        if(availableStock <= 0){
+
+            alert(
+                "This battery is OUT OF STOCK.\n\n" +
+                selectedBattery.brand +
+                " " +
+                selectedBattery.model +
+                " " +
+                selectedBattery.size
+            );
+
+            loadBatteryStock();
+
+            return;
+
+        }
+
+
+        if(qty > availableStock){
+
+            alert(
+                "Not enough battery stock!\n\n" +
+                "Available: " +
+                availableStock +
+                "\nRequested: " +
+                qty
+            );
+
+            return;
+
+        }
+
+
+        /*
+           Make sure Cost Price comes from stock.
+        */
+
+        document.getElementById(
+            "costPrice"
+        ).value =
+            Number(
+                selectedBattery.costPrice
+            ).toFixed(2);
+
+    }
+
+
     /* =================================================
        VAT CALCULATION
-
-       VAT YES:
-       Unit Price is BEFORE VAT
-       VAT = 5% added on top
-
-       VAT NO:
-       Unit Price is VAT-INCLUSIVE
-       VAT is extracted automatically
     ================================================= */
 
     const grossSubtotal =
-        qty * unitPrice;
+        qty *
+        unitPrice;
 
 
     let subtotal = 0;
+
     let vat = 0;
+
     let grandTotal = 0;
 
 
     if(vatCharge === "YES"){
 
-        /*
-           VAT is added on top
-        */
-
         subtotal =
             Math.max(
-                grossSubtotal - discount,
+                grossSubtotal -
+                discount,
                 0
             );
 
+
         vat =
-            subtotal * 0.05;
+            subtotal *
+            0.05;
+
 
         grandTotal =
-            subtotal + vat;
+            subtotal +
+            vat;
 
     }else{
 
-        /*
-           VAT is already included
-           inside the entered price
-        */
-
         const amountAfterDiscount =
             Math.max(
-                grossSubtotal - discount,
+                grossSubtotal -
+                discount,
                 0
             );
+
 
         vat =
             amountAfterDiscount -
             (
-                amountAfterDiscount / 1.05
+                amountAfterDiscount /
+                1.05
             );
+
 
         subtotal =
             amountAfterDiscount -
             vat;
+
 
         grandTotal =
             amountAfterDiscount;
@@ -1741,25 +2186,17 @@ function createInvoice(){
 
 
     /* =================================================
-       COST + PROFIT CALCULATION
-
-       Cost Price = cost per unit
-
-       Cost Total =
-       Cost Price x Quantity
-
-       Profit =
-       NET SALE SUBTOTAL - TOTAL COST
-
-       VAT is NOT treated as profit.
+       COST + PROFIT
     ================================================= */
 
     const costTotal =
-        costPrice * qty;
+        costPrice *
+        qty;
 
 
     const profit =
-        subtotal - costTotal;
+        subtotal -
+        costTotal;
 
 
     /* =================================================
@@ -1818,14 +2255,12 @@ function createInvoice(){
         displayDate =
             String(
                 now.getDate()
-            )
-            .padStart(2,"0")
-            + "/" +
+            ).padStart(2,"0") +
+            "/" +
             String(
                 now.getMonth()+1
-            )
-            .padStart(2,"0")
-            + "/" +
+            ).padStart(2,"0") +
+            "/" +
             now.getFullYear();
 
     }
@@ -1843,7 +2278,7 @@ function createInvoice(){
 
     /* =================================================
        UPDATE INVOICE
-===================================================== */
+    ================================================= */
 
     document
     .getElementById("outInvoiceNo")
@@ -1905,12 +2340,16 @@ function createInvoice(){
 
     const customerTrnRow =
         document
-        .getElementById("customerTrnRow");
+        .getElementById(
+            "customerTrnRow"
+        );
 
 
     const outCustomerTrn =
         document
-        .getElementById("outCustomerTrn");
+        .getElementById(
+            "outCustomerTrn"
+        );
 
 
     if(customerTrn){
@@ -1919,6 +2358,7 @@ function createInvoice(){
             ": " +
             customerTrn;
 
+
         customerTrnRow.style.display =
             "table-row";
 
@@ -1926,6 +2366,7 @@ function createInvoice(){
 
         outCustomerTrn.textContent =
             ":";
+
 
         customerTrnRow.style.display =
             "none";
@@ -1991,10 +2432,17 @@ function createInvoice(){
        ITEM
     ================================================= */
 
-    document
-    .getElementById("outItem")
-    .childNodes[0]
-    .nodeValue =
+    const outItem =
+        document.getElementById(
+            "outItem"
+        );
+
+
+    /*
+       Keep warranty span inside item.
+    */
+
+    outItem.childNodes[0].nodeValue =
         (
             item ||
             "Car Battery"
@@ -2006,8 +2454,9 @@ function createInvoice(){
     ================================================= */
 
     const warrantyElement =
-        document
-        .getElementById("outWarranty");
+        document.getElementById(
+            "outWarranty"
+        );
 
 
     if(warranty){
@@ -2078,18 +2527,22 @@ function createInvoice(){
     ================================================= */
 
     const warrantyYes =
-        document
-        .getElementById("warrantyYes");
+        document.getElementById(
+            "warrantyYes"
+        );
+
 
     const warrantyNo =
-        document
-        .getElementById("warrantyNo");
+        document.getElementById(
+            "warrantyNo"
+        );
 
 
     if(shopWarranty === "YES"){
 
         warrantyYes.textContent =
             "☑ YES";
+
 
         warrantyNo.textContent =
             "☐ NO";
@@ -2098,6 +2551,7 @@ function createInvoice(){
 
         warrantyYes.textContent =
             "☐ YES";
+
 
         warrantyNo.textContent =
             "☑ NO";
@@ -2210,7 +2664,6 @@ function createInvoice(){
 
         /* =============================
            COST PRICE
-           INTERNAL OWNER DATA
         ============================= */
 
         costPrice:
@@ -2223,9 +2676,9 @@ function createInvoice(){
         costTotal:
             costTotal,
 
-        /*
-           Store the NET subtotal
-        */
+        /* =============================
+           SUBTOTAL
+        ============================= */
 
         subtotal:
             subtotal,
@@ -2233,30 +2686,14 @@ function createInvoice(){
         discount:
             discount,
 
-        /*
-           Store automatically calculated VAT
-        */
-
         vat:
             vat,
-
-        /*
-           Store YES / NO selection
-        */
 
         vatCharge:
             vatCharge,
 
-        /*
-           Store final customer amount
-        */
-
         total:
             grandTotal,
-
-        /*
-           Also save explicit grand total
-        */
 
         grandTotal:
             grandTotal,
@@ -2279,6 +2716,44 @@ function createInvoice(){
 
         companyTrn:
             "105121363300003",
+
+        /*
+           STOCK INFORMATION
+        */
+
+        stockBattery:
+            selectedBattery
+            ? {
+                brand:
+                    selectedBattery.brand,
+
+                model:
+                    selectedBattery.model,
+
+                size:
+                    selectedBattery.size,
+
+                costPrice:
+                    Number(
+                        selectedBattery.costPrice
+                    )
+            }
+            : null,
+
+        stockBatteryIndex:
+            selectedStockIndex !== ""
+            ? Number(
+                selectedStockIndex
+              )
+            : null,
+
+        stockDeducted:
+            !!selectedBattery,
+
+        stockDeductedQty:
+            selectedBattery
+            ? qty
+            : 0,
 
         createdAt:
             new Date().toISOString()
@@ -2360,10 +2835,134 @@ function createInvoice(){
     }
 
 
-    alert(
+    /* =================================================
+       DEDUCT STOCK
+    ================================================= */
+
+    if(selectedBattery){
+
+        /*
+           Reload again before deduction.
+           This prevents using an old quantity.
+        */
+
+        let latestStock =
+            JSON.parse(
+                localStorage.getItem(
+                    "yallaBatteryStock"
+                ) || "[]"
+            );
+
+
+        const latestBattery =
+            latestStock[
+                Number(selectedStockIndex)
+            ];
+
+
+        if(!latestBattery){
+
+            /*
+               Invoice is already saved.
+               This should normally never happen
+               because stock was checked above.
+            */
+
+            alert(
+                "Invoice created, but stock record could not be found."
+            );
+
+            loadBatteryStock();
+
+            return;
+
+        }
+
+
+        const latestQuantity =
+            Number(
+                latestBattery.quantity
+            ) || 0;
+
+
+        if(qty > latestQuantity){
+
+            /*
+               Safety protection.
+            */
+
+            alert(
+                "Invoice created, but stock could not be deducted because the latest stock quantity is insufficient."
+            );
+
+            loadBatteryStock();
+
+            return;
+
+        }
+
+
+        latestBattery.quantity =
+            latestQuantity -
+            qty;
+
+
+        latestStock[
+            Number(selectedStockIndex)
+        ] =
+            latestBattery;
+
+
+        localStorage.setItem(
+            "yallaBatteryStock",
+            JSON.stringify(
+                latestStock
+            )
+        );
+
+
+        /*
+           Refresh dropdown after deduction.
+        */
+
+        loadBatteryStock();
+
+
+        document.getElementById(
+            "stockBattery"
+        ).value = "";
+
+    }
+
+
+    /* =================================================
+       SUCCESS
+    ================================================= */
+
+    let successMessage =
         "Invoice " +
         invoiceNo +
-        " created successfully!"
+        " created successfully!";
+
+
+    if(selectedBattery){
+
+        successMessage +=
+            "\n\nStock deducted: " +
+            qty +
+            " unit(s)" +
+            "\n" +
+            selectedBattery.brand +
+            " " +
+            selectedBattery.model +
+            " " +
+            selectedBattery.size;
+
+    }
+
+
+    alert(
+        successMessage
     );
 
 }
@@ -2390,6 +2989,13 @@ function goBack(){
         "index.html";
 
 }
+
+
+/* =====================================================
+   LOAD STOCK ON PAGE LOAD
+===================================================== */
+
+loadBatteryStock();
 
 </script>
 
