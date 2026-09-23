@@ -784,6 +784,23 @@ body{
         >
     </div>
 
+    <!-- =================================================
+         COST PRICE
+         INTERNAL OWNER DATA ONLY
+    ================================================= -->
+
+    <div class="form-group">
+        <label>Cost Price (AED)</label>
+        <input
+            type="number"
+            id="costPrice"
+            value="0"
+            min="0"
+            step="0.01"
+            placeholder="Enter cost price"
+        >
+    </div>
+
     <div class="form-group">
         <label>Discount (AED)</label>
         <input
@@ -1610,6 +1627,19 @@ function createInvoice(){
         ) || 0;
 
 
+    /* =================================================
+       COST PRICE
+       INTERNAL OWNER DATA ONLY
+    ================================================= */
+
+    const costPrice =
+        Number(
+            document
+            .getElementById("costPrice")
+            .value
+        ) || 0;
+
+
     const discount =
         Number(
             document
@@ -1652,11 +1682,6 @@ function createInvoice(){
        VAT NO:
        Unit Price is VAT-INCLUSIVE
        VAT is extracted automatically
-
-       Example:
-       472.50 / 1.05 = 450.00
-       472.50 - 450.00 = 22.50 VAT
-       Grand Total = 472.50
     ================================================= */
 
     const grossSubtotal =
@@ -1713,6 +1738,28 @@ function createInvoice(){
             amountAfterDiscount;
 
     }
+
+
+    /* =================================================
+       COST + PROFIT CALCULATION
+
+       Cost Price = cost per unit
+
+       Cost Total =
+       Cost Price x Quantity
+
+       Profit =
+       NET SALE SUBTOTAL - TOTAL COST
+
+       VAT is NOT treated as profit.
+    ================================================= */
+
+    const costTotal =
+        costPrice * qty;
+
+
+    const profit =
+        subtotal - costTotal;
 
 
     /* =================================================
@@ -1796,7 +1843,7 @@ function createInvoice(){
 
     /* =================================================
        UPDATE INVOICE
-    ================================================= */
+===================================================== */
 
     document
     .getElementById("outInvoiceNo")
@@ -2008,9 +2055,6 @@ function createInvoice(){
 
     /* =================================================
        ITEM TOTAL
-
-       This remains the actual amount entered
-       before/including VAT according to selection.
     ================================================= */
 
     document
@@ -2157,8 +2201,27 @@ function createInvoice(){
         qty:
             qty,
 
+        /* =============================
+           SALE PRICE
+        ============================= */
+
         unitPrice:
             unitPrice,
+
+        /* =============================
+           COST PRICE
+           INTERNAL OWNER DATA
+        ============================= */
+
+        costPrice:
+            costPrice,
+
+        /* =============================
+           TOTAL COST
+        ============================= */
+
+        costTotal:
+            costTotal,
 
         /*
            Store the NET subtotal
@@ -2197,6 +2260,13 @@ function createInvoice(){
 
         grandTotal:
             grandTotal,
+
+        /* =============================
+           PROFIT
+        ============================= */
+
+        profit:
+            profit,
 
         payment:
             payment,
@@ -2324,4 +2394,4 @@ function goBack(){
 </script>
 
 </body>
-</html>
+    </html>
