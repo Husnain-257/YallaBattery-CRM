@@ -20,9 +20,7 @@ body{
     color:#123b40;
 }
 
-/* ================================
-   HEADER
-================================ */
+/* HEADER */
 
 .header{
     background:#005f64;
@@ -83,9 +81,7 @@ body{
 }
 
 
-/* ================================
-   MAIN
-================================ */
+/* MAIN */
 
 .container{
     max-width:1200px;
@@ -114,9 +110,7 @@ body{
 }
 
 
-/* ================================
-   FILTER
-================================ */
+/* FILTER */
 
 .filter-box{
     background:white;
@@ -181,9 +175,7 @@ body{
 }
 
 
-/* ================================
-   REPORT CARDS
-================================ */
+/* REPORT CARDS */
 
 .report-grid{
     display:grid;
@@ -229,9 +221,59 @@ body{
 }
 
 
-/* ================================
-   SUMMARY
-================================ */
+/* TODAY / MONTH */
+
+.period-section{
+    margin-bottom:22px;
+}
+
+.period-title{
+    color:#005f64;
+    font-size:20px;
+    margin:0 0 14px;
+}
+
+.period-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.period-card{
+    background:white;
+    border-radius:13px;
+    padding:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+    border-left:5px solid #00777a;
+}
+
+.period-card.cost{
+    border-left-color:#d95d39;
+}
+
+.period-card.profit{
+    border-left-color:#f9c400;
+}
+
+.period-card .small-title{
+    color:#687779;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.period-card .amount{
+    color:#005f64;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.period-card.profit .amount{
+    color:#007a5a;
+}
+
+
+/* SUMMARY */
 
 .summary-box{
     background:#005f64;
@@ -271,9 +313,7 @@ body{
 }
 
 
-/* ================================
-   TABLE
-================================ */
+/* TABLE */
 
 .table-box{
     background:white;
@@ -354,9 +394,7 @@ tbody tr:hover{
 }
 
 
-/* ================================
-   FOOTER
-================================ */
+/* FOOTER */
 
 .footer{
     margin-top:35px;
@@ -377,9 +415,7 @@ tbody tr:hover{
 }
 
 
-/* ================================
-   MOBILE
-================================ */
+/* MOBILE */
 
 @media(max-width:900px){
 
@@ -388,6 +424,10 @@ tbody tr:hover{
     }
 
     .filter-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .period-grid{
         grid-template-columns:1fr 1fr;
     }
 
@@ -439,6 +479,10 @@ tbody tr:hover{
         width:100%;
     }
 
+    .period-grid{
+        grid-template-columns:1fr;
+    }
+
     .summary-grid{
         grid-template-columns:1fr;
     }
@@ -455,9 +499,7 @@ tbody tr:hover{
 }
 
 
-/* ================================
-   PRINT
-================================ */
+/* PRINT */
 
 @media print{
 
@@ -480,6 +522,7 @@ tbody tr:hover{
 
     .page-title,
     .report-card,
+    .period-card,
     .summary-box,
     .table-box{
         box-shadow:none;
@@ -602,10 +645,9 @@ tbody tr:hover{
 
 
 
-    <!-- REPORT CARDS -->
+    <!-- OVERALL REPORT -->
 
     <div class="report-grid">
-
 
         <div class="report-card">
 
@@ -622,7 +664,6 @@ tbody tr:hover{
             </p>
 
         </div>
-
 
 
         <div class="report-card cost">
@@ -642,7 +683,6 @@ tbody tr:hover{
         </div>
 
 
-
         <div class="report-card profit">
 
             <div class="report-icon">
@@ -658,7 +698,6 @@ tbody tr:hover{
             </p>
 
         </div>
-
 
 
         <div class="report-card invoices">
@@ -681,6 +720,134 @@ tbody tr:hover{
 
 
 
+    <!-- TODAY -->
+
+    <section class="period-section">
+
+        <h2 class="period-title">
+            📅 Today's Report
+        </h2>
+
+
+        <div class="period-grid">
+
+            <div class="period-card">
+
+                <div class="small-title">
+                    TODAY SALES
+                </div>
+
+                <div
+                    class="amount"
+                    id="todaySales"
+                >
+                    AED 0.00
+                </div>
+
+            </div>
+
+
+            <div class="period-card cost">
+
+                <div class="small-title">
+                    TODAY COST
+                </div>
+
+                <div
+                    class="amount"
+                    id="todayCost"
+                >
+                    AED 0.00
+                </div>
+
+            </div>
+
+
+            <div class="period-card profit">
+
+                <div class="small-title">
+                    TODAY PROFIT
+                </div>
+
+                <div
+                    class="amount"
+                    id="todayProfit"
+                >
+                    AED 0.00
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- THIS MONTH -->
+
+    <section class="period-section">
+
+        <h2 class="period-title">
+            📆 This Month's Report
+        </h2>
+
+
+        <div class="period-grid">
+
+            <div class="period-card">
+
+                <div class="small-title">
+                    MONTH SALES
+                </div>
+
+                <div
+                    class="amount"
+                    id="monthSales"
+                >
+                    AED 0.00
+                </div>
+
+            </div>
+
+
+            <div class="period-card cost">
+
+                <div class="small-title">
+                    MONTH COST
+                </div>
+
+                <div
+                    class="amount"
+                    id="monthCost"
+                >
+                    AED 0.00
+                </div>
+
+            </div>
+
+
+            <div class="period-card profit">
+
+                <div class="small-title">
+                    MONTH PROFIT
+                </div>
+
+                <div
+                    class="amount"
+                    id="monthProfit"
+                >
+                    AED 0.00
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
     <!-- SUMMARY -->
 
     <div class="summary-box">
@@ -691,7 +858,6 @@ tbody tr:hover{
 
 
         <div class="summary-grid">
-
 
             <div class="summary-item">
 
@@ -832,7 +998,6 @@ tbody tr:hover{
 
 <script>
 
-
 /* ================================
    LOAD INVOICES
 ================================ */
@@ -846,9 +1011,8 @@ let invoices =
 let filteredInvoices = [...invoices];
 
 
-
 /* ================================
-   MONEY FORMAT
+   MONEY
 ================================ */
 
 function money(value){
@@ -858,9 +1022,8 @@ function money(value){
 }
 
 
-
 /* ================================
-   GET INVOICE DATE
+   DATE
 ================================ */
 
 function getInvoiceDate(invoice){
@@ -875,22 +1038,11 @@ function getInvoiceDate(invoice){
 }
 
 
-
 /* ================================
-   GET SALE
+   SALE
 ================================ */
 
 function getSale(invoice){
-
-    /*
-       Preferred value:
-       saleTotal
-
-       Fallback:
-       subtotal
-       grandTotal
-       total
-    */
 
     if(invoice.saleTotal !== undefined){
 
@@ -913,9 +1065,8 @@ function getSale(invoice){
 }
 
 
-
 /* ================================
-   GET COST
+   COST
 ================================ */
 
 function getCost(invoice){
@@ -929,7 +1080,11 @@ function getCost(invoice){
     if(invoice.costPrice !== undefined){
 
         let qty =
-            Number(invoice.qty || invoice.quantity || 1);
+            Number(
+                invoice.qty ||
+                invoice.quantity ||
+                1
+            );
 
         return (
             Number(invoice.costPrice) || 0
@@ -942,9 +1097,8 @@ function getCost(invoice){
 }
 
 
-
 /* ================================
-   GET PROFIT
+   PROFIT
 ================================ */
 
 function getProfit(invoice){
@@ -960,9 +1114,8 @@ function getProfit(invoice){
 }
 
 
-
 /* ================================
-   GET CUSTOMER
+   CUSTOMER
 ================================ */
 
 function getCustomer(invoice){
@@ -977,9 +1130,8 @@ function getCustomer(invoice){
 }
 
 
-
 /* ================================
-   GET VEHICLE
+   VEHICLE
 ================================ */
 
 function getVehicle(invoice){
@@ -1004,7 +1156,6 @@ function getVehicle(invoice){
 }
 
 
-
 /* ================================
    FORMAT DATE
 ================================ */
@@ -1012,10 +1163,13 @@ function getVehicle(invoice){
 function formatDate(date){
 
     if(!date){
+
         return "—";
+
     }
 
-    let d = new Date(date);
+    let d =
+        new Date(date);
 
     if(isNaN(d.getTime())){
 
@@ -1030,6 +1184,189 @@ function formatDate(date){
 }
 
 
+/* ================================
+   LOCAL DATE CHECK
+================================ */
+
+function getLocalDateKey(date){
+
+    let d =
+        new Date(date);
+
+    if(isNaN(d.getTime())){
+
+        return "";
+
+    }
+
+    return (
+        d.getFullYear() +
+        "-" +
+        String(
+            d.getMonth() + 1
+        ).padStart(2,"0") +
+        "-" +
+        String(
+            d.getDate()
+        ).padStart(2,"0")
+    );
+
+}
+
+
+/* ================================
+   TODAY REPORT
+================================ */
+
+function updateTodayReport(){
+
+    let now =
+        new Date();
+
+    let todayKey =
+        getLocalDateKey(now);
+
+
+    let todayInvoices =
+        invoices.filter(function(invoice){
+
+            let date =
+                getInvoiceDate(invoice);
+
+            if(!date){
+
+                return false;
+
+            }
+
+            return (
+                getLocalDateKey(date) ===
+                todayKey
+            );
+
+        });
+
+
+    let sales = 0;
+
+    let cost = 0;
+
+    let profit = 0;
+
+
+    todayInvoices.forEach(function(invoice){
+
+        sales += getSale(invoice);
+
+        cost += getCost(invoice);
+
+        profit += getProfit(invoice);
+
+    });
+
+
+    document.getElementById(
+        "todaySales"
+    ).textContent =
+        money(sales);
+
+
+    document.getElementById(
+        "todayCost"
+    ).textContent =
+        money(cost);
+
+
+    document.getElementById(
+        "todayProfit"
+    ).textContent =
+        money(profit);
+
+}
+
+
+/* ================================
+   MONTH REPORT
+================================ */
+
+function updateMonthReport(){
+
+    let now =
+        new Date();
+
+    let currentYear =
+        now.getFullYear();
+
+    let currentMonth =
+        now.getMonth();
+
+
+    let monthInvoices =
+        invoices.filter(function(invoice){
+
+            let date =
+                getInvoiceDate(invoice);
+
+            if(!date){
+
+                return false;
+
+            }
+
+            let d =
+                new Date(date);
+
+            if(isNaN(d.getTime())){
+
+                return false;
+
+            }
+
+            return (
+                d.getFullYear() === currentYear &&
+                d.getMonth() === currentMonth
+            );
+
+        });
+
+
+    let sales = 0;
+
+    let cost = 0;
+
+    let profit = 0;
+
+
+    monthInvoices.forEach(function(invoice){
+
+        sales += getSale(invoice);
+
+        cost += getCost(invoice);
+
+        profit += getProfit(invoice);
+
+    });
+
+
+    document.getElementById(
+        "monthSales"
+    ).textContent =
+        money(sales);
+
+
+    document.getElementById(
+        "monthCost"
+    ).textContent =
+        money(cost);
+
+
+    document.getElementById(
+        "monthProfit"
+    ).textContent =
+        money(profit);
+
+}
+
 
 /* ================================
    APPLY FILTER
@@ -1038,10 +1375,15 @@ function formatDate(date){
 function applyFilter(){
 
     let from =
-        document.getElementById("fromDate").value;
+        document.getElementById(
+            "fromDate"
+        ).value;
+
 
     let to =
-        document.getElementById("toDate").value;
+        document.getElementById(
+            "toDate"
+        ).value;
 
 
     filteredInvoices =
@@ -1067,7 +1409,9 @@ function applyFilter(){
             }
 
 
-            date.setHours(0,0,0,0);
+            date.setHours(
+                0,0,0,0
+            );
 
 
             if(from){
@@ -1075,7 +1419,10 @@ function applyFilter(){
                 let fromDate =
                     new Date(from);
 
-                fromDate.setHours(0,0,0,0);
+                fromDate.setHours(
+                    0,0,0,0
+                );
+
 
                 if(date < fromDate){
 
@@ -1091,7 +1438,10 @@ function applyFilter(){
                 let toDate =
                     new Date(to);
 
-                toDate.setHours(23,59,59,999);
+                toDate.setHours(
+                    23,59,59,999
+                );
+
 
                 if(date > toDate){
 
@@ -1112,27 +1462,33 @@ function applyFilter(){
 }
 
 
-
 /* ================================
-   RESET FILTER
+   RESET
 ================================ */
 
 function resetFilter(){
 
-    document.getElementById("fromDate").value = "";
+    document.getElementById(
+        "fromDate"
+    ).value = "";
 
-    document.getElementById("toDate").value = "";
 
-    filteredInvoices = [...invoices];
+    document.getElementById(
+        "toDate"
+    ).value = "";
+
+
+    filteredInvoices =
+        [...invoices];
+
 
     updateReport();
 
 }
 
 
-
 /* ================================
-   UPDATE REPORT
+   UPDATE MAIN REPORT
 ================================ */
 
 function updateReport(){
@@ -1159,24 +1515,29 @@ function updateReport(){
         filteredInvoices.length;
 
 
-    document.getElementById("totalSales").textContent =
+    document.getElementById(
+        "totalSales"
+    ).textContent =
         money(totalSales);
 
 
-    document.getElementById("totalCost").textContent =
+    document.getElementById(
+        "totalCost"
+    ).textContent =
         money(totalCost);
 
 
-    document.getElementById("totalProfit").textContent =
+    document.getElementById(
+        "totalProfit"
+    ).textContent =
         money(totalProfit);
 
 
-    document.getElementById("totalInvoices").textContent =
+    document.getElementById(
+        "totalInvoices"
+    ).textContent =
         invoiceCount;
 
-
-
-    /* Average Sale */
 
     let averageSale =
         invoiceCount > 0
@@ -1184,12 +1545,11 @@ function updateReport(){
         : 0;
 
 
-    document.getElementById("averageSale").textContent =
+    document.getElementById(
+        "averageSale"
+    ).textContent =
         money(averageSale);
 
-
-
-    /* Average Profit */
 
     let averageProfit =
         invoiceCount > 0
@@ -1197,12 +1557,11 @@ function updateReport(){
         : 0;
 
 
-    document.getElementById("averageProfit").textContent =
+    document.getElementById(
+        "averageProfit"
+    ).textContent =
         money(averageProfit);
 
-
-
-    /* Profit Margin */
 
     let margin =
         totalSales > 0
@@ -1210,27 +1569,27 @@ function updateReport(){
         : 0;
 
 
-    document.getElementById("profitMargin").textContent =
+    document.getElementById(
+        "profitMargin"
+    ).textContent =
         margin.toFixed(2) + "%";
 
-
-
-    /* Table */
 
     renderTable();
 
 }
 
 
-
 /* ================================
-   RENDER TABLE
+   TABLE
 ================================ */
 
 function renderTable(){
 
     let table =
-        document.getElementById("reportTable");
+        document.getElementById(
+            "reportTable"
+        );
 
 
     table.innerHTML = "";
@@ -1249,7 +1608,6 @@ function renderTable(){
         return;
 
     }
-
 
 
     filteredInvoices.forEach(function(invoice){
@@ -1284,21 +1642,29 @@ function renderTable(){
         row.innerHTML = `
 
             <td>
-                <strong>${escapeHTML(invoiceNumber)}</strong>
+                <strong>
+                    ${escapeHTML(invoiceNumber)}
+                </strong>
             </td>
 
             <td>
                 ${escapeHTML(
-                    formatDate(getInvoiceDate(invoice))
+                    formatDate(
+                        getInvoiceDate(invoice)
+                    )
                 )}
             </td>
 
             <td>
-                ${escapeHTML(getCustomer(invoice))}
+                ${escapeHTML(
+                    getCustomer(invoice)
+                )}
             </td>
 
             <td>
-                ${escapeHTML(getVehicle(invoice))}
+                ${escapeHTML(
+                    getVehicle(invoice)
+                )}
             </td>
 
             <td>
@@ -1323,7 +1689,6 @@ function renderTable(){
 }
 
 
-
 /* ================================
    HTML SAFETY
 ================================ */
@@ -1340,9 +1705,8 @@ function escapeHTML(value){
 }
 
 
-
 /* ================================
-   BACK TO CRM
+   BACK
 ================================ */
 
 function goBack(){
@@ -1353,12 +1717,15 @@ function goBack(){
 }
 
 
-
 /* ================================
-   INITIAL REPORT
+   START
 ================================ */
 
 updateReport();
+
+updateTodayReport();
+
+updateMonthReport();
 
 </script>
 
